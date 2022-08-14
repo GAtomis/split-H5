@@ -2,7 +2,7 @@
  * @Description: vite配置
  * @Author: Gavin
  * @Date: 2022-08-02 12:02:32
- * @LastEditTime: 2022-08-14 12:16:23
+ * @LastEditTime: 2022-08-14 17:15:41
  * @LastEditors: Gavin
  */
 import { defineConfig, loadEnv } from 'vite'
@@ -53,7 +53,7 @@ export default defineConfig(({ command, mode }) => {
             replace: true, // 是否转换后直接更换属性值
             // exclude: [/node_modules/], // 设置忽略文件，用正则做目录名匹配
             exclude: [],
-            landscape: !false, // 是否处理横屏情况
+            landscape: false, // 是否处理横屏情况
             landscapeUnit:'vw', // (String) 横屏时使用的单位
             landscapeWidth: 667 // (Number) 横屏时使用的视口宽度
                  
