@@ -2,19 +2,22 @@
  * @Description: 框架
  * @Author: Gavin
  * @Date: 2022-08-14 15:03:42
- * @LastEditTime: 2022-08-14 15:29:08
+ * @LastEditTime: 2022-08-14 23:01:27
  * @LastEditors: Gavin
 -->
 
 <template>
     <main-tabbar />
-    <keep-alive exclude="Detail">
+
       <router-view />
-    </keep-alive>
+
 </template>
 
 <script lang='ts' setup>
 import MainTabbar from "./components/MainBar.vue"
+
+
+
 
 //expects props options
 /*const props = defineProps({

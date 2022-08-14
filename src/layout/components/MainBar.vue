@@ -2,7 +2,7 @@
  * @Description: tabar
  * @Author: Gavin
  * @Date: 2022-08-14 15:05:26
- * @LastEditTime: 2022-08-14 15:29:03
+ * @LastEditTime: 2022-08-14 23:18:56
  * @LastEditors: Gavin
 -->
 
@@ -18,9 +18,30 @@
 </template>
 
 <script lang='ts' setup>
-import { Tabbar, TabbarItem } from 'vant';
-import {ref} from "vue"
-    const active = ref(0);
+
+import {ref,computed} from "vue"
+import menu from '@/router/modules/menu'
+let [item]=menu
+
+
+const menuList=computed(()=>{
+const res= item.children?.filter(item=>{
+     return item.meta?.type=="menu"
+  })
+  return res?.map(item=>{
+    return {
+        path:item.path,
+        name:item.meta?.title??"default" ,
+        icon:item.meta?.icon??"default"
+    }
+
+  })??[]
+
+})
+
+
+
+const active = ref(0);
  
 //expects props options
 /*const props = defineProps({

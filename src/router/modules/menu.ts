@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-09-08 12:07:06
- * @LastEditTime: 2022-08-14 16:05:24
+ * @LastEditTime: 2022-08-14 23:17:22
  * @LastEditors: Gavin
  */
  
@@ -12,9 +12,9 @@ import { ExpandRouteRecordRaw } from '@/model/router'
 
 const mixinRouter: Array<ExpandRouteRecordRaw> = [
   {
-    path: '/',
+    path: '/layout',
     component: Layout,
-    redirect: '/home',
+    redirect: '/layout/home',
     name: 'Layout',
     meta: {
       title: 'layout',
@@ -27,9 +27,32 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
         name: 'Home',
         component: () => import('@/views/Home/Home.vue'),
         meta: {
-          title: 'home',
+          title: '首页',
           icon: 'icon-codepen',
           roles: '/home',
+          type:'menu'
+        },
+      },
+      {
+        path: 'operate',
+        name: 'Operate',
+        component: () => import('@/views/Home/Home.vue'),
+        meta: {
+          title: '运营',
+          icon: 'icon-codepen',
+          roles: '/operate',
+          type:'menu'
+        },
+      },
+      {
+        path: 'user',
+        name: 'User',
+        component: () => import('@/views/Home/Home.vue'),
+        meta: {
+          title: '我的',
+          icon: 'icon-codepen',
+          roles: '/layout/user',
+          type:'menu'
         },
       },
     

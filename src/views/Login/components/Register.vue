@@ -1,61 +1,50 @@
 <!--
- * @Description: 请输入....
+ * @Description: 注册
  * @Author: Gavin
- * @Date: 2022-08-14 16:23:36
- * @LastEditTime: 2022-08-14 17:43:38
+ * @Date: 2022-08-14 18:09:46
+ * @LastEditTime: 2022-08-14 22:41:09
  * @LastEditors: Gavin
 -->
 <template>
- <div class="Login">
-
-<van-nav-bar
-  title="登陆"
-  right-text="注册"
-  @click-right="onClickRight"
-/>
-<header >
-
-<van-image
-  class="logo"
-  :src="logoUrl"
-/>
-</header>
-
-
 <van-form @submit="onSubmit">
   <van-cell-group inset>
     <van-field
       v-model="username"
       name="用户名"
       label="用户名"
-      placeholder="用户名"
+      placeholder="设置用户名"
       :rules="[{ required: true, message: '请填写用户名' }]"
     />
     <van-field
       v-model="password"
-      type="password"
       name="密码"
       label="密码"
-      placeholder="密码"
+      placeholder="设置密码"
       :rules="[{ required: true, message: '请填写密码' }]"
+    />
+     <van-field
+      v-model="password"
+      type="password"
+      name="确认密码"
+      label="确认密码"
+      placeholder="确认密码"
+      :rules="[{ required: true, message: '请确认密码' }]"
     />
   </van-cell-group>
   <div style="margin: 16px;">
     <van-button round block type="primary" native-type="submit">
-      提交
+      注册
     </van-button>
   </div>
 </van-form>
 
- </div>
+
 </template>
 
 <script lang='ts' setup>
-import logoUrl from "@/assets/logo.png"
-import useLogin from './hooks/useLogin'
+import useRegister from '../hooks/useRegister'
 
-const { username,password,onSubmit} =useLogin()
- const onClickRight = () => history.back();
+const { username,password,onSubmit} =useRegister()
 //expects props options
 /*const props = defineProps({
 foo: String
@@ -65,17 +54,5 @@ foo: String
 </script>
 
 <style scoped lang='scss'>
-header{
-  position: relative;
-  height: 200px;
-  
-  .logo{
-    position: absolute;
-    left: 50%;
-    top:50%;
-    transform: translate(-50%, -50%)
-
-  }
-}
 
 </style>
