@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-09-08 12:07:06
- * @LastEditTime: 2022-08-14 23:17:22
+ * @LastEditTime: 2022-08-16 16:32:31
  * @LastEditors: Gavin
  */
  
@@ -28,7 +28,7 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
         component: () => import('@/views/Home/Home.vue'),
         meta: {
           title: '首页',
-          icon: 'icon-codepen',
+          icon: 'wap-home-o',
           roles: '/home',
           type:'menu'
         },
@@ -39,7 +39,7 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
         component: () => import('@/views/Home/Home.vue'),
         meta: {
           title: '运营',
-          icon: 'icon-codepen',
+          icon: 'cluster-o',
           roles: '/operate',
           type:'menu'
         },
@@ -50,7 +50,7 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
         component: () => import('@/views/Home/Home.vue'),
         meta: {
           title: '我的',
-          icon: 'icon-codepen',
+          icon: 'user-circle-o',
           roles: '/layout/user',
           type:'menu'
         },

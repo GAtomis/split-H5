@@ -2,20 +2,30 @@
  * @Description: 框架
  * @Author: Gavin
  * @Date: 2022-08-14 15:03:42
- * @LastEditTime: 2022-08-14 23:01:27
+ * @LastEditTime: 2022-08-16 18:29:21
  * @LastEditors: Gavin
 -->
 
 <template>
-    <main-tabbar />
 
-      <router-view />
+  <NavBar/>
+  <main>
+    
+  <router-view v-slot="{ Component, route }">
+       <transition :name="route.meta.transition as string|| 'fade'" mode="out-in">
+        <keep-alive>
+            <component class="content" :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+        </keep-alive>
+      </transition>
+    </router-view> 
+  </main>
 
+   <LayTabbar />
 </template>
 
 <script lang='ts' setup>
-import MainTabbar from "./components/MainBar.vue"
-
+import LayTabbar from "./components/MainBar.vue"
+import NavBar from './components/NavBar.vue'
 
 
 
@@ -28,5 +38,16 @@ foo: String
 </script>
 
 <style scoped lang='scss'>
+main{
+position: absolute;
+top:48px;
+bottom: 52px;
+left: 0;
+overflow:hidden;
+overflow-y:scroll;
+background-color: #eee;
+
+
+}
 
 </style>
