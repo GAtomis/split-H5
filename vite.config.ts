@@ -2,7 +2,7 @@
  * @Description: vite配置
  * @Author: Gavin
  * @Date: 2022-08-02 12:02:32
- * @LastEditTime: 2022-08-14 17:15:41
+ * @LastEditTime: 2022-08-17 01:04:38
  * @LastEditors: Gavin
  */
 import { defineConfig, loadEnv } from 'vite'
@@ -17,7 +17,7 @@ import { VantResolver } from 'unplugin-vue-components/resolvers'
 export default defineConfig(({ command, mode }) => {
   // 根据当前工作目录中的 `mode` 加载 .env 文件
   // 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
-  const env = loadEnv(mode, process.cwd(), '')
+  const env = loadEnv(mode, process.cwd())
   return {
     base: './', //绝对路径配置根据ngxin
     resolve: {
@@ -67,22 +67,12 @@ export default defineConfig(({ command, mode }) => {
 
       proxy: {
 
-        '/cn/v1.0/projects': {
-          target: 'https://api.agora.io',
+  
+        [env.VITE_BASE_API]: {
+          target: env.VITE_BASE_PROXY,
           changeOrigin: true,
         },
-        '/api/user': {
-          target: 'http://localhost:8888',
-          changeOrigin: true,
-        },
-        '/api/role': {
-          target: 'http://localhost:8888',
-          changeOrigin: true,
-        },
-        '/api/getToken': {
-          target: 'http://localhost:9999',
-          changeOrigin: true,
-        },
+           
       },
     },
     plugins: [vue(),
