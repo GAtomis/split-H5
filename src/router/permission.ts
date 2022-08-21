@@ -2,7 +2,7 @@
  * @Description: 路由守卫
  * @Author: Gavin
  * @Date: 2021-07-21 09:53:05
- * @LastEditTime: 2022-08-18 19:10:40
+ * @LastEditTime: 2022-08-19 11:39:59
  * @LastEditors: Gavin
  */
 import {
@@ -66,7 +66,6 @@ export function createGuardHook(router: Router): void {
           // 自动登录
 
           }
-
           showLoadingToast({
             message: '加载中...',
             forbidClick: true,

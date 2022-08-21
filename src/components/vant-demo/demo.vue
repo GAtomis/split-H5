@@ -27,7 +27,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { Checkbox, CheckboxGroup, Card, SubmitBar, Toast } from 'vant'
+import { Checkbox, CheckboxGroup, Card, SubmitBar, showToast } from 'vant'
 import type { CardGoods } from '@/model/demo'
 const checkedGoods = ref<string[]>(['1', '2', '3'])
 const goods = ref<CardGoods[]>([
@@ -63,7 +63,7 @@ const formatPrice = (price: number) => {
   return (price / 100).toFixed(2)
 }
 const onSubmit = () => {
-  Toast('点击结算')
+  showToast('点击结算')
 }
 const submitBarText = computed(() => {
   const count = checkedGoods.value.length

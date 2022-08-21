@@ -43,7 +43,7 @@
 import useLogin from '../hooks/useInfo'
 import {useUser} from "@/store/pinia"
 import {useRouter} from "vue-router"
-import { Toast } from "vant"
+import { showToast } from "vant"
 const { username,password,codeUrl,code,resetCode} =useLogin()
  const $router  = useRouter()
 const onSubmit=async()=>{
@@ -57,7 +57,7 @@ const onSubmit=async()=>{
     $router.push({
       path: "/layout",
     })
-     Toast.success("登录成功")
+     showToast.success("登录成功")
 
   }).finally(() => {
     resetCode()

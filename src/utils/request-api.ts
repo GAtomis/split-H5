@@ -2,11 +2,11 @@
  * @Description: axios
  * @Author: Gavin
  * @Date: 2022-08-02 15:04:30
- * @LastEditTime: 2022-08-18 18:01:20
+ * @LastEditTime: 2022-08-19 11:36:38
  * @LastEditors: Gavin
  */
 import axios, { AxiosResponse, AxiosInstance ,AxiosRequestHeaders} from "axios"
-import { Toast } from 'vant';
+import { showFailToast } from 'vant';
 import {useUser} from "@/store/pinia"
 
 
@@ -33,7 +33,7 @@ instance.interceptors.response.use((response) => {
   if (res && res.code != 0 && res.code != 200) {
     console.log(res.code);
 
-    Toast.fail(res.msg);
+    showFailToast(res.msg);
     return Promise.reject(new Error(res.message || '返回码异常Error'))
   } else {
     return res
@@ -43,7 +43,7 @@ instance.interceptors.response.use((response) => {
 
 }, error => {
   console.log('err' + error) // for debug
-  Toast.fail(error.msg);
+  showFailToast(error.msg);
   return Promise.reject(error)
 }
 )

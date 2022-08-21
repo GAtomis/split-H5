@@ -37,7 +37,7 @@ import useRegister from '../hooks/useInfo'
 
 import {useUser} from "@/store/pinia"
 import {useRouter} from "vue-router"
-import { Toast } from "vant"
+import { showToast } from "vant"
 
 const { username, password, codeUrl, code, rePassword, name, validatorRePass ,resetCode} = useRegister()
 
@@ -50,7 +50,7 @@ const onSubmit = async (values: any) => {
     password: password.value,
     code: code.value
   }).then(res => {
-    Toast.success("注册成功")
+    showToast.success("注册成功")
     useRouter().replace({
       path: "/login",
       query: {
