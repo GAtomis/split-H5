@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-12-29 15:13:50
- * @LastEditTime: 2022-08-18 18:51:37
+ * @LastEditTime: 2022-08-22 18:08:51
  * @LastEditors: Gavin
  */
 import { defineStore } from 'pinia'
@@ -22,7 +22,8 @@ export default defineStore("user", {
     }
   }),
   getters: {
-    sys_token: state => state.token
+    sys_token: state => state.token,
+    sys_user:state=>state.user
   },
   actions: {
     async login(param: Login) {

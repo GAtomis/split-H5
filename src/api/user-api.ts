@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-02 15:21:07
- * @LastEditTime: 2022-08-18 19:02:32
+ * @LastEditTime: 2022-08-24 11:10:59
  * @LastEditors: Gavin
  */
 
@@ -28,5 +28,10 @@ export function register(data:Register) {
 export function getUserInfo() {
   return http.request<any,Result<User>>({
     url:"user/getUserInfo",
+  })
+}
+export function getUserList() {
+  return http.request<any,Result<User[]>>({
+    url:"user/list",
   })
 }

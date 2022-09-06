@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-14 18:09:46
- * @LastEditTime: 2022-08-18 17:51:09
+ * @LastEditTime: 2022-08-22 15:21:46
  * @LastEditors: Gavin
 -->
 <template>
@@ -43,7 +43,7 @@
 import useLogin from '../hooks/useInfo'
 import {useUser} from "@/store/pinia"
 import {useRouter} from "vue-router"
-import { showToast } from "vant"
+import { showSuccessToast } from "vant"
 const { username,password,codeUrl,code,resetCode} =useLogin()
  const $router  = useRouter()
 const onSubmit=async()=>{
@@ -57,7 +57,7 @@ const onSubmit=async()=>{
     $router.push({
       path: "/layout",
     })
-     showToast.success("登录成功")
+     showSuccessToast("登录成功")
 
   }).finally(() => {
     resetCode()

@@ -2,7 +2,7 @@
  * @Description: 路由守卫
  * @Author: Gavin
  * @Date: 2021-07-21 09:53:05
- * @LastEditTime: 2022-08-19 11:39:59
+ * @LastEditTime: 2022-08-22 15:23:18
  * @LastEditors: Gavin
  */
 import {
@@ -61,8 +61,15 @@ export function createGuardHook(router: Router): void {
           if(hasToken()&&isLogin()){
             return true
           }else if (hasToken()){
-           await useUser().getUserInfo()
-           return true
+
+            try {
+              await useUser().getUserInfo()
+              return true
+              
+            } catch (error) {
+              
+            }
+    
           // 自动登录
 
           }

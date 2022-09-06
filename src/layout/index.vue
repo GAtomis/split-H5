@@ -2,7 +2,7 @@
  * @Description: 框架
  * @Author: Gavin
  * @Date: 2022-08-14 15:03:42
- * @LastEditTime: 2022-08-16 21:29:46
+ * @LastEditTime: 2022-09-06 14:40:24
  * @LastEditors: Gavin
 -->
 
@@ -11,10 +11,12 @@
   <NavBar />
   <main>
 
+
+
     <router-view v-slot="{ Component, route }">
       <transition :name="route.meta.transition as string || 'fade'" mode="out-in">
         <keep-alive>
-          <component class="content" :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+          <component class="content" :is="Component"  />
         </keep-alive>
       </transition>
     </router-view>
