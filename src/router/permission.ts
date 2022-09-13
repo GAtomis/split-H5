@@ -2,7 +2,7 @@
  * @Description: 路由守卫
  * @Author: Gavin
  * @Date: 2021-07-21 09:53:05
- * @LastEditTime: 2022-08-22 15:23:18
+ * @LastEditTime: 2022-09-07 19:12:52
  * @LastEditors: Gavin
  */
 import {
@@ -43,7 +43,7 @@ const  hasToken =():boolean=> useUser().sys_token!=""
  * @return {*}
  * @Date: 2022-08-18 18:55:37
  */
-const  isLogin= ():boolean=> useUser().user.id!=''
+const  isLogin= ():boolean=> !!useUser().sys_user.id
 
 export function createGuardHook(router: Router): void {
   router.beforeEach(
@@ -51,7 +51,7 @@ export function createGuardHook(router: Router): void {
    
     
     async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-    
+      // return true
       
           if(hasWhiteList(to.name as string)){
 

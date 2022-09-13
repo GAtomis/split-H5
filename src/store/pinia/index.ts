@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-12-31 13:41:15
- * @LastEditTime: 2022-09-06 15:01:07
+ * @LastEditTime: 2022-09-13 12:53:56
  * @LastEditors: Gavin
  */
 
@@ -11,6 +11,7 @@ import { createPinia } from 'pinia'
 
 import useUser from './user'
 import useEnum from './enum'
+import useTempTable from './temp-table'
 
 
 // const usePinia = () => {
@@ -22,6 +23,6 @@ import useEnum from './enum'
 
 //   return createPinia()
 // }
-export {useUser,useEnum}
+export {useUser,useEnum,useTempTable}
 
 export default createPinia

@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-09-08 12:07:06
- * @LastEditTime: 2022-09-06 14:42:40
+ * @LastEditTime: 2022-09-13 11:08:17
  * @LastEditors: Gavin
  */
  
@@ -30,6 +30,7 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
           title: '首页',
           icon: 'wap-home-o',
           roles: '/bill/billTable',
+          cache:true,
           type:'link'
         },
       }, 
@@ -41,7 +42,8 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
           title: '账单记录',
           icon: 'wap-home-o',
           roles: '/bill/billRecord',
-          type:'link'
+          type:'link',
+          cache:true,
         },
       }, 
     

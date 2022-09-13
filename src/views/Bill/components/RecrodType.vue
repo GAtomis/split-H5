@@ -2,7 +2,7 @@
  * @Description: 记录
  * @Author: Gavin
  * @Date: 2022-08-23 23:36:58
- * @LastEditTime: 2022-09-06 15:06:26
+ * @LastEditTime: 2022-09-07 19:37:48
  * @LastEditors: Gavin
 -->
 <template>
@@ -19,9 +19,6 @@
      
 
     </van-cell-group>
-
-
-
 
   </div>
 </template>
@@ -41,7 +38,7 @@ import {useEnum} from '@/store/pinia'
 const serachKey = ref('')
 const  defaultRecrod:RecrodType[]=useEnum().recrodTypeEnum
 //功能列
-const recrodList= ref<RecrodType[]>(useEnum().recrodTypeEnum)
+const recrodList= ref<RecrodType[]>(defaultRecrod)
 const onSearch=(key:string)=>{
   recrodList.value= defaultRecrod.filter(item=>item.title.includes(key)||item.label.includes(key))
 }

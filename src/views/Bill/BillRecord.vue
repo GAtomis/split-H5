@@ -2,75 +2,118 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 11:57:05
- * @LastEditTime: 2022-09-06 16:08:11
+ * @LastEditTime: 2022-09-13 13:03:58
  * @LastEditors: Gavin
 -->
 <template>
-  <div class="layout-content billRecord   " >
-    <nav v-if="currentRecrod">
+  <div class=" billRecord   ">
+    <nav v-if="currentRecrodType">
       <van-cell-group>
-      <van-cell :title="currentRecrod.title"  :icon="currentRecrod.icon" size="large"  @click="showNumKeyBoard=true" :label="currentRecrod.label">
-        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
-        <template #right-icon>
-                {{
-                  amount
-                }}{{
-                  amount&&'  CNY'
-                }}
-        </template>
-      </van-cell>
-     
+        <van-cell :title="currentRecrodType.title" :icon="currentRecrodType.icon" size="large" :value="form.price"
+          @click="showNumKeyBoard=true" :label="currentRecrodType.label">
+          <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+          <template #right-icon>
+            <span style="margin-left: 5px;"> {{
+            form.price&&' CNY'
+            }}</span>
 
-    </van-cell-group>
+          </template>
+        </van-cell>
+      </van-cell-group>
     </nav>
-    <footer>
 
-      <van-number-keyboard
-  :show="showNumKeyBoard"
-  theme="custom"
-  :extra-key="['00', '.']"
-  close-button-text="完成"
-  @blur="showNumKeyBoard = false"
-  @input="onInput"
-  @delete="onDelete"
-/>
+    <main>
+
+
+      <van-form @submit="onSubmit">
+
+        <van-field class="magb-10" label="创建人" :model-value="creator" readonly />
+
+        <van-field v-model="startTimeFmt" class="magb-10" is-link readonly name="datePicker" label="发生时间"
+          placeholder="点击选择时间" @click="showPicker = true" />
+        <van-field class="magb-10" name="uploader" label="文件上传">
+          <template #input>
+            <div>
+              <van-uploader v-model="fileList" :capture="capture" :after-read="afterRead" :before-read="beforeRead"
+                multiple :max-count="count" />
+              <p>附件限制：最多1个，单个不超过10M</p>
+            </div>
+
+          </template>
+
+        </van-field>
+
+
+        <van-field class="magb-10" v-model="form.describe" rows="2" autosize label="描述" type="textarea" maxlength="50"  placeholder="请输入留言" show-word-limit  />
+        
+
+        <!-- <input type="file" @change="upl" id="fname" name="fname"> -->
+        <div style="margin: 16px;" class="magb-10">
+          <van-button round block type="primary" native-type="submit">
+            提交
+          </van-button>
+        </div>
+
+
+      </van-form>
+
+
+
+
+    </main>
+    <footer>
+      <van-number-keyboard :show="showNumKeyBoard" theme="custom" :extra-key="['00', '.']" close-button-text="完成"
+        @blur="showNumKeyBoard = false" @input="onInput" @delete="onDelete" />
+
+      <van-popup v-model:show="showPicker" position="bottom">
+        <van-date-picker v-model="defaultTime" @confirm="onConfirm" @cancel="showPicker = false" />
+      </van-popup>
     </footer>
 
   </div>
 </template>
 
 <script lang='ts' setup>
-import { computed,ref } from 'vue'
-import { useEnum } from '@/store/pinia'
+import { computed, ref, onMounted, watchEffect } from 'vue'
+import { useEnum, useUser} from '@/store/pinia'
 import { useRoute } from 'vue-router';
+import useNumKeyBoard from './hooks/useNumKeyBoard'
+import useRecordForm from './hooks/useRecrodForm'
+import useUpload from './hooks/useUpload'
+import type { BillRecrod } from '@/model/bill/types'
 
 const route = useRoute()
-
-const currentRecrod = computed(() => {
-
-const recrodTypeEnum = useEnum().recrodTypeEnum
-if (route?.query?.type) {
-const currentType = route.query.type as string
-return recrodTypeEnum.find(item => item.type == +currentType)
-}
-return null
-
-})
-const amount =ref("00.00")
-const showNumKeyBoard=ref(false)
-const onInput=(number:string)=>{console.log(number)
-  if( amount.value=== "00.00")amount.value="";
-  amount.value=amount.value+number 
-},
-onDelete=(number:any)=>{
-  const stringLen=amount.value.length
-
-  amount.value=amount.value.slice(0,stringLen-1)
-  //如果删除完就初始化
-  if (!amount.value.length) {
-    amount.value="00.00"
+const user = useUser()
+const currentRecrodType = computed(() => {
+  const recrodTypeEnum = useEnum().recrodTypeEnum
+  if (route?.query?.type) {
+    const currentType = route.query.type as string
+    return recrodTypeEnum.find(item => item.type == +currentType)
   }
-}
+  return null
+})
+const { amount, showNumKeyBoard, onInput, onDelete } = useNumKeyBoard()
+const creator = ref('')
+
+const { form, onSubmit, showPicker,
+  onConfirm, startTimeFmt, defaultTime } = useRecordForm()
+
+const { fileList, beforeRead, capture, afterRead, count = 1, imageUrl } = useUpload()
+
+watchEffect(() => {
+  form.img = imageUrl.value
+})
+watchEffect(() => {
+  form.price = amount.value
+})
+
+onMounted(async () => {
+  form.userId = computed(() => user.sys_user.id).value!
+  creator.value = computed(() => user.sys_user.name).value!
+})
+
+
+
 
 //expects props options
 /*const props = defineProps({
@@ -81,8 +124,13 @@ foo: String
 </script>
 
 <style scoped lang='scss'>
-.billRecord {
+main {
 
-  // padding: 10px;
+  padding: 10px;
+
+  .creator {
+    margin-bottom: 10px;
+  }
+
 }
 </style>

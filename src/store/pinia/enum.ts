@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-12-29 15:13:50
- * @LastEditTime: 2022-09-06 15:02:13
+ * @LastEditTime: 2022-09-13 15:10:09
  * @LastEditors: Gavin
  */
 import { defineStore } from 'pinia'
@@ -25,6 +25,15 @@ export default defineStore("enum", {
     recrodTypeEnum:state=>state.recrodType
   },
   actions: {
+    getRecrodTypeItem(id:number){
+
+      return this.recrodTypeEnum.find(item=>item.type==id)
+
+    }
+
+    
+
+    
 
   },
 })

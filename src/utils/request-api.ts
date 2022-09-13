@@ -2,13 +2,13 @@
  * @Description: axios
  * @Author: Gavin
  * @Date: 2022-08-02 15:04:30
- * @LastEditTime: 2022-08-19 11:36:38
+ * @LastEditTime: 2022-09-09 17:10:00
  * @LastEditors: Gavin
  */
 import axios, { AxiosResponse, AxiosInstance ,AxiosRequestHeaders} from "axios"
 import { showFailToast } from 'vant';
 import {useUser} from "@/store/pinia"
-
+import {baseUrlwhiteList,successCode} from './index'
 
 
 const rootPath = import.meta.env.VITE_BASE_API as string
@@ -16,6 +16,8 @@ const instance = axios.create({
   baseURL: rootPath
 });
 instance.interceptors.request.use((config) => {
+
+  if(baseUrlwhiteList.some(item=>config.baseURL?.includes(item))) return config
  const token= useUser().sys_token
   config.headers!.Authorization=token
 
@@ -24,16 +26,18 @@ instance.interceptors.request.use((config) => {
 })
 instance.interceptors.response.use((response) => {
 
+  
+
   const res = response.data
   //权限无权限错误代码跳转error页面
   if (res.code === 224) {
     // router.replace({ path: '/error', query: { errMsg: res.msg } })
   }
   //非0和200返回异常
-  if (res && res.code != 0 && res.code != 200) {
+  if (res && !successCode.includes(res.code.toString())) {
     console.log(res.code);
 
-    showFailToast(res.msg);
+    showFailToast(res?.msg||res?.message);
     return Promise.reject(new Error(res.message || '返回码异常Error'))
   } else {
     return res

@@ -2,12 +2,15 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-12-29 15:13:50
- * @LastEditTime: 2022-08-22 18:08:51
+ * @LastEditTime: 2022-09-13 14:13:00
  * @LastEditors: Gavin
  */
 import { defineStore } from 'pinia'
 import { useLocalStorage } from "@vueuse/core"
-import type { Login, UserState, Register } from "@/model/user/types"
+import type { Login, Register } from "@/model/user/types"
+import type {UserState} from '../types'
+
+
 import { login, register, getUserInfo } from "@/api/user-api"
 export default defineStore("user", {
 
@@ -15,7 +18,7 @@ export default defineStore("user", {
     token: useLocalStorage('token', ""),
     user: {
       avatar: "",
-      id: "",
+      id: 0,
       username: "",
       name: "",
       gender: false

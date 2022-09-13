@@ -2,27 +2,33 @@
  * @Description: 框架
  * @Author: Gavin
  * @Date: 2022-08-14 15:03:42
- * @LastEditTime: 2022-09-06 14:40:24
+ * @LastEditTime: 2022-09-13 11:49:38
  * @LastEditors: Gavin
 -->
 
 <template>
 
-  <NavBar />
-  <main>
+  <section>
+    <NavBar />
+    <main>
 
-
-
-    <router-view v-slot="{ Component, route }">
+      <router-view v-slot="{ Component, route }">
       <transition :name="route.meta.transition as string || 'fade'" mode="out-in">
-        <keep-alive>
-          <component class="content" :is="Component"  />
+        <keep-alive v-if="route.meta.cache">
+          <component class="layout-content" :is="Component" :key="route.fullPath" />
         </keep-alive>
+        <template v-else>
+          <component class="layout-content" :is="Component" :key="route.fullPath" />
+        </template>
+
       </transition>
     </router-view>
-  </main>
+    </main>
 
-  <LayTabbar />
+    <LayTabbar />
+
+  </section>
+
 </template>
 
 <script lang='ts' setup>
@@ -48,7 +54,5 @@ main {
   overflow: hidden;
   overflow-y: scroll;
   background-color: #eee;
-
-
 }
 </style>

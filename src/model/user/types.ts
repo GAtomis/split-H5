@@ -2,14 +2,14 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-17 00:06:03
- * @LastEditTime: 2022-08-18 18:52:11
+ * @LastEditTime: 2022-09-13 15:46:19
  * @LastEditors: Gavin
  */
 
-import type {RemovableRef} from "@vueuse/core"
+
 export type User = {
   avatar: string
-  id?: string
+  id?: number
   username: string
   name: string
   gender: boolean
@@ -30,9 +30,3 @@ export type Register={
 
 
 }
-export type UserState={
-  token:RemovableRef<string>
-  user:User
-}
-
-

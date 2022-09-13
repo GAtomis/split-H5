@@ -2,12 +2,12 @@
  * @Description: Home
  * @Author: Gavin
  * @Date: 2022-08-14 15:50:33
- * @LastEditTime: 2022-08-23 00:31:25
+ * @LastEditTime: 2022-09-07 19:40:20
  * @LastEditors: Gavin
 -->
 <template>
 
-  <div class="home layout-content">
+  <div class="home">
 
     <van-pull-refresh v-model="isLoading" success-text="刷新成功" @refresh="onRefresh" class="layout-content">
 

@@ -2,7 +2,7 @@
  * @Description: vite配置
  * @Author: Gavin
  * @Date: 2022-08-02 12:02:32
- * @LastEditTime: 2022-08-17 01:04:38
+ * @LastEditTime: 2022-09-09 15:46:08
  * @LastEditors: Gavin
  */
 import { defineConfig, loadEnv } from 'vite'
@@ -72,6 +72,13 @@ export default defineConfig(({ command, mode }) => {
           target: env.VITE_BASE_PROXY,
           changeOrigin: true,
         },
+        '/upload':{
+          target: 'https://smms.app/api/v2',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/upload/, '')
+
+
+        }
            
       },
     },
