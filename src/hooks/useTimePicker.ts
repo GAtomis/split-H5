@@ -2,7 +2,7 @@
  * @Description: 时间组件必要
  * @Author: Gavin
  * @Date: 2022-09-13 15:35:43
- * @LastEditTime: 2022-09-13 16:07:26
+ * @LastEditTime: 2022-09-14 15:07:30
  * @LastEditors: Gavin
  */
 
@@ -10,22 +10,21 @@ import { ref, computed } from 'vue'
 import dayjs from 'dayjs'
 export default function () {
 
-  const time = ref<string>(dayjs().format())
+  const time = ref<string>(dayjs().format('YYYY-MM-DD HH:mm:ss'))
   //时间选择弹窗
   const showPicker = ref(false);
-  const timeFmt = computed(() => dayjs(time.value).format('YYYY-MM-DD'))
-  const defaultTime = timeFmt.value.split("-");
   const onConfirm = ({ selectedValues }: { selectedValues: string[] }) => {
-    time.value = dayjs(selectedValues.join('-')).format()
+   const current= dayjs(selectedValues.join('-')).format()
+  time.value=dayjs(current).format('YYYY-MM-DD HH:mm:ss')
     showPicker.value = false;
   };
+  const defaultTime=time.value.split("-");  
 
   return {
     time,
     showPicker,
-    timeFmt,
-    defaultTime, 
-    onConfirm
+    onConfirm,
+    defaultTime
   }
 
 }

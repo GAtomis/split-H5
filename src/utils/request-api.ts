@@ -2,7 +2,7 @@
  * @Description: axios
  * @Author: Gavin
  * @Date: 2022-08-02 15:04:30
- * @LastEditTime: 2022-09-09 17:10:00
+ * @LastEditTime: 2022-09-15 18:15:56
  * @LastEditors: Gavin
  */
 import axios, { AxiosResponse, AxiosInstance ,AxiosRequestHeaders} from "axios"
@@ -30,8 +30,9 @@ instance.interceptors.response.use((response) => {
 
   const res = response.data
   //权限无权限错误代码跳转error页面
-  if (res.code === 224) {
+  if (res.code === 44) {
     // router.replace({ path: '/error', query: { errMsg: res.msg } })
+    return Promise.reject(res)
   }
   //非0和200返回异常
   if (res && !successCode.includes(res.code.toString())) {

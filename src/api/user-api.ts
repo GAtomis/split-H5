@@ -2,13 +2,13 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-02 15:21:07
- * @LastEditTime: 2022-08-24 11:10:59
+ * @LastEditTime: 2022-09-16 15:00:06
  * @LastEditors: Gavin
  */
 
 
 import http from "@/utils/request-api"
-import type {Login,Register,User}from "@/model/user/types"
+import type {Login,Register,UserInfo}from "@/model/user/types"
 import type {Result} from "@/model/common/types"
 
 export function login(data:Login) {
@@ -26,12 +26,19 @@ export function register(data:Register) {
   })
 }
 export function getUserInfo() {
-  return http.request<any,Result<User>>({
-    url:"user/getUserInfo",
+  return http.request<any,Result<UserInfo>>({
+    url:"user/userInfo",
+  })
+}
+export function createUserInfo(data:UserInfo) {
+  return http.request<any,Result<string>>({
+    url:"user/addUserInfo",
+    method:"POST",
+    data
   })
 }
 export function getUserList() {
-  return http.request<any,Result<User[]>>({
+  return http.request<any,Result<UserInfo[]>>({
     url:"user/list",
   })
 }

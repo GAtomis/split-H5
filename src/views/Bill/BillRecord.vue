@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 11:57:05
- * @LastEditTime: 2022-09-13 13:03:58
+ * @LastEditTime: 2022-09-15 19:09:04
  * @LastEditors: Gavin
 -->
 <template>
@@ -29,9 +29,18 @@
 
         <van-field class="magb-10" label="创建人" :model-value="creator" readonly />
 
-        <van-field v-model="startTimeFmt" class="magb-10" is-link readonly name="datePicker" label="发生时间"
+        <van-field v-model="form.startTime" class="magb-10" is-link readonly name="datePicker" label="发生时间"
           placeholder="点击选择时间" @click="showPicker = true" />
-        <van-field class="magb-10" name="uploader" label="文件上传">
+          <van-field name="radio" class="magb-10" label="分摊方式">
+          <template #input>
+            <van-radio-group v-model="form.existing" direction="horizontal">
+              <van-radio :name="1">个人分摊</van-radio>
+              <van-radio :name="2">均摊</van-radio>
+            </van-radio-group>
+          </template>
+        </van-field>
+
+        <van-field class="magb-10" name="uploader" label="头像上传">
           <template #input>
             <div>
               <van-uploader v-model="fileList" :capture="capture" :after-read="afterRead" :before-read="beforeRead"
@@ -43,9 +52,11 @@
 
         </van-field>
 
+    
 
-        <van-field class="magb-10" v-model="form.describe" rows="2" autosize label="描述" type="textarea" maxlength="50"  placeholder="请输入留言" show-word-limit  />
-        
+        <van-field class="magb-10" v-model="form.describe" rows="2" autosize label="描述" type="textarea" maxlength="50"
+          placeholder="请输入留言" show-word-limit />
+
 
         <!-- <input type="file" @change="upl" id="fname" name="fname"> -->
         <div style="margin: 16px;" class="magb-10">
@@ -75,7 +86,7 @@
 
 <script lang='ts' setup>
 import { computed, ref, onMounted, watchEffect } from 'vue'
-import { useEnum, useUser} from '@/store/pinia'
+import { useEnum, useUser } from '@/store/pinia'
 import { useRoute } from 'vue-router';
 import useNumKeyBoard from './hooks/useNumKeyBoard'
 import useRecordForm from './hooks/useRecrodForm'
@@ -96,7 +107,7 @@ const { amount, showNumKeyBoard, onInput, onDelete } = useNumKeyBoard()
 const creator = ref('')
 
 const { form, onSubmit, showPicker,
-  onConfirm, startTimeFmt, defaultTime } = useRecordForm()
+  onConfirm, defaultTime } = useRecordForm()
 
 const { fileList, beforeRead, capture, afterRead, count = 1, imageUrl } = useUpload()
 

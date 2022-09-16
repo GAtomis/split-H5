@@ -2,7 +2,7 @@
  * @Description: 日常账单
  * @Author: Gavin
  * @Date: 2022-08-22 15:48:43
- * @LastEditTime: 2022-09-13 15:57:04
+ * @LastEditTime: 2022-09-13 23:11:12
  * @LastEditors: Gavin
 -->
 <template>
@@ -65,8 +65,54 @@
           </nav>
           <main>
 
+               <van-tabs v-model:active="active" swipeable>
 
-               <section>
+           
+                    <van-tab :title="'账单信息'" :name="'form'">
+                  
+                              <van-cell center>
+                                   <template #title>
+                                        <span class="title">账单信息</span>
+                                   </template>
+
+                              </van-cell>
+                              <TableForm :form="form" style="width: 100%;height: 100%;" />
+
+
+                     
+
+                    </van-tab>
+
+
+                    <van-tab :title="'费用记录'" :name="'recrod'">
+                         <section>
+                              <van-cell center>
+                                   <template #title>
+                                        <span class="title">费用记录</span>
+                                   </template>
+
+                              </van-cell>
+
+                              <van-swipe-cell  v-for=" item,index in bilRecords" :key="index">
+                                   <van-card num="1" :price="item.price" :desc="item.describe"
+                                        :title="`类型:${useEnum().getRecrodTypeItem(item.type)?.title}`"
+                                        class="goods-card"
+                                        :thumb="item.img||`https://img2.baidu.com/it/u=2840961417,55008201&fm=253&fmt=auto&app=138&f=JPG?w=500&h=500`" />
+                                   <template #right>
+                                        <van-button square text="删除" @click="deleteRecord(item,index)" type="danger" class="delete-button" />
+                                   </template>
+                              </van-swipe-cell>
+                              <van-cell center>
+                                   <template #title>
+                                        <van-button icon="plus" @click="addBillRecord" plain block type="primary">添加账单记录
+                                        </van-button>
+                                   </template>
+
+                              </van-cell>
+                         </section>
+                    </van-tab>
+               </van-tabs>
+               <!-- <section>
 
                     <van-cell center>
                          <template #title>
@@ -90,18 +136,18 @@
                          </template>
 
                     </van-cell>
-               </section>
-               <section>
+               </section> -->
+               <!-- <section>
                     <van-cell center>
                          <template #title>
                               <span class="title">表单信息</span>
                          </template>
 
                     </van-cell>
-                    <TableForm :form="form"/>
+                    <TableForm :form="form" />
 
 
-               </section>
+               </section> -->
 
 
 
@@ -117,7 +163,7 @@
                     </div>
                </van-action-sheet>
 
-    
+
           </footer>
 
      </div>
@@ -125,21 +171,24 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, onActivated, onDeactivated, ref } from 'vue';
+import { computed, onActivated, onDeactivated, ref ,watchEffect,onMounted} from 'vue';
 import type { BillTable } from "@/model/bill/types"
 import { useUser, useTempTable, useEnum } from '@/store/pinia'
 import { useRecrodDialog } from "./hooks/useRecrodDialog"
 import RecrodType from './components/RecrodType.vue';
 import { useRouter, useRoute } from "vue-router";
 import { getDetailById } from "@/api/bill-table-api"
-import  TableForm  from './components/TableForm.vue'
+import TableForm from './components/TableForm.vue'
 
 const { isShow, addBillRecord } = useRecrodDialog()
 const router = useRouter()
 const route = useRoute()
 const tempTable = useTempTable()
 
+const active = ref("form")
+
 const form = ref<BillTable>({
+     area: '',
      name: '',
      describe: '',
      startTime: '',
@@ -167,21 +216,34 @@ const handleCurrent = (type: number) => {
      })
      isShow.value = false
 }
+const deleteRecord=(item:any,index:number)=>{
+     form.value.bilRecords.splice(index,1)
+}
 const getBillTable = async () => {
      const res = await getDetailById({ id: +(route.query?.id ?? 0) })
      return res.result
 }
+watchEffect(()=>{
+     form.value.userNum=form.value.sysUsers.length
+})
+
+
 
 //通过判断id,进行初始化,如果有Id就请求接口信息,没有读取缓存内信息
 onActivated(async () => {
+
+
+     
      if (route.query?.id) {
           form.value = await getBillTable()
      } else {
 
           form.value = tempTable.bill_table
-          form.value.sysUsers[0] = useUser().sys_user
+          !form.value.sysUsers.length&&form.value.sysUsers.push(useUser().sys_user)
+         
 
      }
+     route.query?.active&&(active.value=route.query?.active as string??'form' )
 
 
 })

@@ -1,17 +1,17 @@
 /*
- * @Description: 请输入....
+ * @Description: 上传头像
  * @Author: Gavin
- * @Date: 2022-09-07 18:01:50
- * @LastEditTime: 2022-09-16 14:58:10
+ * @Date: 2022-09-15 19:05:42
+ * @LastEditTime: 2022-09-15 19:09:22
  * @LastEditors: Gavin
  */
+
 
 import { ref} from 'vue'
 import { showToast } from 'vant';
 
 import {upload} from '@/api/upload-api'
 import type {
-
   UploaderFileListItem,
 } from 'vant';
 export default function () {
@@ -72,3 +72,16 @@ const afterRead=async (item:any) => {
 
   }
 }
+
+
+// <van-field class="magb-10" name="uploader" label="头像上传">
+// <template #input>
+//   <div>
+//     <van-uploader v-model="fileList" :capture="capture" :after-read="afterRead" :before-read="beforeRead"
+//       multiple :max-count="count" />
+//     <p>附件限制：最多1个，单个不超过10M</p>
+//   </div>
+
+// </template>
+
+// </van-field>

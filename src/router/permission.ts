@@ -2,7 +2,7 @@
  * @Description: 路由守卫
  * @Author: Gavin
  * @Date: 2021-07-21 09:53:05
- * @LastEditTime: 2022-09-07 19:12:52
+ * @LastEditTime: 2022-09-16 15:01:32
  * @LastEditors: Gavin
  */
 import {
@@ -19,7 +19,7 @@ import { showLoadingToast } from 'vant';
 
 
 //白名单
-const whitelist: Array<string> = ['Login', 'Error', '404','Register'] // no redirect whitelist
+const whitelist: Array<string> = ['Login', 'Error', '404','Register',"Guide"] // no redirect whitelist
 
 /**
  * @description: 是否在路由白名单内
@@ -50,7 +50,7 @@ export function createGuardHook(router: Router): void {
 
    
     
-    async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+     async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
       // return true
       
           if(hasWhiteList(to.name as string)){
@@ -61,17 +61,21 @@ export function createGuardHook(router: Router): void {
           if(hasToken()&&isLogin()){
             return true
           }else if (hasToken()){
-
-            try {
-              await useUser().getUserInfo()
-              return true
-              
-            } catch (error) {
-              
-            }
-    
+              try {
+                await useUser().getUserInfo()
+                return true
+                
+              } catch (error:any) {
+                    if(error?.code&&error.code==44){
+                      return {
+                        name: 'Guide',
+                        query: { redirect: to.fullPath },
+                        replace: true,
+                      }
+                    }
+                      
+              }  
           // 自动登录
-
           }
           showLoadingToast({
             message: '加载中...',

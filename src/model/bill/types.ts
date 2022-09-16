@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 16:26:25
- * @LastEditTime: 2022-09-13 16:20:42
+ * @LastEditTime: 2022-09-16 13:50:29
  * @LastEditors: Gavin
  */
 
@@ -11,7 +11,7 @@
 
 import type {User} from "@/model/user/types"
 export type BillTable={
-    id?        : string
+    id?        : number|string
 	name      : string     
 	describe  : string      
 	startTime : string
@@ -25,8 +25,8 @@ export type BillTable={
 
 export type BillRecrod={
     id?:number|string
-    userId:number
-    price:number|string
+    userId:string|number
+    price:string|number
     startTime:string
     existing:number
     type:number,

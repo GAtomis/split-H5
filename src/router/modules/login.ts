@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-14 16:19:54
- * @LastEditTime: 2022-08-14 22:30:02
+ * @LastEditTime: 2022-09-16 11:10:27
  * @LastEditors: Gavin
  */
 import { ExpandRouteRecordRaw } from '@/model/router'
@@ -43,6 +43,8 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
         },
 
       }
+   
+      
     ]
 
   }

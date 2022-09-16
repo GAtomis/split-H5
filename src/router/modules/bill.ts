@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-09-08 12:07:06
- * @LastEditTime: 2022-09-13 11:08:17
+ * @LastEditTime: 2022-09-13 17:57:11
  * @LastEditors: Gavin
  */
  
@@ -43,7 +43,7 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
           icon: 'wap-home-o',
           roles: '/bill/billRecord',
           type:'link',
-          cache:true,
+          cache:false,
         },
       }, 
     
