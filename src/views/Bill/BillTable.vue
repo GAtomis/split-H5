@@ -2,7 +2,7 @@
  * @Description: 日常账单
  * @Author: Gavin
  * @Date: 2022-08-22 15:48:43
- * @LastEditTime: 2022-09-19 19:48:57
+ * @LastEditTime: 2022-09-19 19:46:06
  * @LastEditors: Gavin
 -->
 <template>
@@ -166,7 +166,7 @@
                          </div>
                     </van-action-sheet>
 
-
+                   
                     <van-action-sheet v-model:show="isSysUserShow" title="检索联系人">
                          <SearchContact @on-select="offSysUserShow" />
                     </van-action-sheet>
@@ -189,7 +189,7 @@ import { useUser, useTempTable, useEnum } from '@/store/pinia'
 import { useRecrodDialog } from "./hooks/useRecrodDialog"
 import RecrodType from './components/RecrodType.vue';
 
-import { useRouter, useRoute } from "vue-router";
+import { useRouter, useRoute} from "vue-router";
 import { getDetailById } from "@/api/bill-table-api"
 import TableForm from './components/TableForm.vue'
 import { showToast } from 'vant';
@@ -254,7 +254,7 @@ watchEffect(() => {
 })
 
 
-const offSysUserShow = (user: UserInfo) => {
+const offSysUserShow = (user: UserInfo|any) => {
 
      if (form.value.sysUsers.every(item => item.id != user.id)) {
           form.value.sysUsers.push(user)
@@ -269,25 +269,13 @@ const offSysUserShow = (user: UserInfo) => {
 
 const loading = ref(false)
 
-router.afterEach((to, from) => {
-
-     console.log(from, 11111111);
-     if (from.name != "BillRecord") {
-          form.value = tempTable.bill_table
-          form.value.creatorId = useUser().sys_user.id as string
-          !form.value.sysUsers.length && form.value.sysUsers.push(useUser().sys_user)
-     }
-
-
-
-})
 
 //通过判断id,进行初始化,如果有Id就请求接口信息,没有读取缓存内信息
 onActivated(async () => {
 
-
-
-
+    
+     
+     
      loading.value = true
 
 
@@ -299,6 +287,9 @@ onActivated(async () => {
 
      } else {
 
+          form.value = tempTable.bill_table
+          form.value.creatorId = useUser().sys_user.id as string
+          !form.value.sysUsers.length && form.value.sysUsers.push(useUser().sys_user)
 
      }
      route.query?.active && (active.value = route.query?.active as string ?? 'form')
