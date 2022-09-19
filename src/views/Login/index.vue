@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-14 16:23:36
- * @LastEditTime: 2022-08-14 22:38:19
+ * @LastEditTime: 2022-09-18 10:40:16
  * @LastEditors: Gavin
 -->
 <template>
@@ -52,6 +52,11 @@ foo: String
 </script>
 
 <style scoped lang='scss'>
+.Login{
+  height: 100vh;
+  background-color: var(--van-background-2)
+}
+
 header {
   position: relative;
   height: 200px;

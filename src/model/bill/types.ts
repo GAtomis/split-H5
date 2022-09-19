@@ -2,37 +2,45 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 16:26:25
- * @LastEditTime: 2022-09-16 13:50:29
+ * @LastEditTime: 2022-09-17 17:16:53
  * @LastEditors: Gavin
  */
 
 
 
 
-import type {User} from "@/model/user/types"
+import type { UserInfo} from "@/model/user/types"
 export type BillTable={
     id?        : number|string
 	name      : string     
 	describe  : string      
-	startTime : string
-	endTime   :string
+	endTime   :number
 	state     : number       
 	bilRecords: BillRecrod[] 
-	userNum   : number    
+    creatorId?:string
+    creator?:UserInfo
+	userNum   : number  
+    total:string  
     area:string    
-	sysUsers   :User[] 
+	sysUsers   :UserInfo[] 
+    createdAt?:string
+    updatedAt?:string
 }
 
 export type BillRecrod={
     id?:number|string
-    userId:string|number
     price:string|number
-    startTime:string
+    endTime:number
+    creatorId?:string
+    creator?:UserInfo
     existing:number
     type:number,
     img:string,
     area:string   
     tableId?:number,
     describe:string,
+    createdAt?:string
+    updatedAt?:string
     [key: string]: any
+    
 }

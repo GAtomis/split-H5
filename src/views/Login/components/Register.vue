@@ -2,7 +2,7 @@
  * @Description: 注册
  * @Author: Gavin
  * @Date: 2022-08-14 18:09:46
- * @LastEditTime: 2022-09-15 11:38:08
+ * @LastEditTime: 2022-09-17 11:41:02
  * @LastEditors: Gavin
 -->
 <template>
@@ -38,7 +38,7 @@ import { useRouter } from "vue-router"
 import { showSuccessToast } from "vant"
 
 const { username, password, codeUrl, code, rePassword, name, validatorRePass, resetCode } = useRegister()
-
+const router=useRouter()
 
 const onSubmit = async (values: any) => {
   console.log('submit', values);
@@ -49,7 +49,7 @@ const onSubmit = async (values: any) => {
   }).then(res => {
 
     showSuccessToast('注册成功');
-    useRouter().replace({
+    router.replace({
       path: "/login",
       query: {
         from: "register",

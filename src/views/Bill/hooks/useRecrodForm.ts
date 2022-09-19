@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-23 01:06:13
- * @LastEditTime: 2022-09-16 13:52:38
+ * @LastEditTime: 2022-09-17 13:11:16
  * @LastEditors: Gavin
  */
 //枚举
@@ -19,9 +19,9 @@ export default function useRecrodDialog(){
   const route=useRoute()
   const tempStore=useTempTable()
   const form=reactive<BillRecrod>({
-    userId:'',
+    creatorId:'',
     price:"",
-    startTime:dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    endTime:0,
     existing:1,
     type:+(route.query?.id??1),
     img:'',
@@ -34,23 +34,23 @@ export default function useRecrodDialog(){
     router.replace({path:"/bill/billTable",query:{active:'recrod'}})
   };
   //时间选择弹窗
-  const showPicker = ref(false);
+  // const showPicker = ref(false);
   // dayjs.extend(utc)
-  const onConfirm = ({selectedValues}:{selectedValues:string[]}) => {
+  // const onConfirm = ({selectedValues}:{selectedValues:string[]}) => {
 
     
-    form.startTime=dayjs(dayjs(selectedValues.join('-')).format()).format('YYYY-MM-DD HH:mm:ss')
-    showPicker.value = false;
-  };
-  const defaultTime=form.startTime.split("-");  
+  //   form.startTime=dayjs(dayjs(selectedValues.join('-')).format()).format('YYYY-MM-DD HH:mm:ss')
+  //   showPicker.value = false;
+  // };
+  // const defaultTime=form.startTime.split("-");  
 
  
   return {
     onSubmit,
     form,
-    showPicker,
-    onConfirm,
-    defaultTime
+    // showPicker,
+    // onConfirm,
+    // defaultTime
 
   }
 }

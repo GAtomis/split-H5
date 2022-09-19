@@ -13,12 +13,14 @@
     "@vueuse/core": "^9.1.0",
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
+    "lodash": "^4.14.185",
     "pinia": "^2.0.18",
     "vant": "4.0.0-beta.0",
     "vue": "^3.2.37",
     "vue-router": "4.1.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.185",
     "@types/node": "^18.6.3",
     "@vitejs/plugin-vue": "^3.0.0",
     "autoprefixer": "^10.4.8",

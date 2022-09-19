@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-02 15:21:07
- * @LastEditTime: 2022-09-16 15:00:06
+ * @LastEditTime: 2022-09-19 18:05:58
  * @LastEditors: Gavin
  */
 
@@ -42,3 +42,12 @@ export function getUserList() {
     url:"user/list",
   })
 }
+
+ export function getInfoListByName (data:{searchKey:string}) {
+  return http.request<any,Result<UserInfo[]>>({
+    url:"user/getInfoListByName",
+    method:"POST",
+    data
+  })
+}
+

@@ -2,14 +2,14 @@
  * @Description: table
  * @Author: Gavin
  * @Date: 2021-12-29 15:13:50
- * @LastEditTime: 2022-09-13 16:29:08
+ * @LastEditTime: 2022-09-18 00:43:12
  * @LastEditors: Gavin
  */
 import { defineStore } from 'pinia'
 import { useLocalStorage } from "@vueuse/core"
 
 import {TempTableState} from '@/store/types'
-import type {BillRecrod} from '@/model/bill/types'
+import type {BillRecrod, BillTable} from '@/model/bill/types'
 
 
 export default defineStore("temp-table", {
@@ -20,8 +20,9 @@ export default defineStore("temp-table", {
       id   :   '',
       name  : '' ,
       describe :'',    
-      startTime :'',
-      endTime  : '',
+      creatorId:'',
+      total:'',
+      endTime  : 0,
       state   :1,   
       bilRecords:[],
       userNum   : 0   ,   
@@ -33,10 +34,8 @@ export default defineStore("temp-table", {
     bill_table:state=>state.billTable 
   },
   actions: {
-    updateTable(){
-
-
-
+    updateTable(item:BillTable){
+      this.billTable=item
     },
     updateBilRecords(record:BillRecrod){
       const hasRecords=()=>this.billTable.bilRecords.find(item=>item?.id==record?.id)

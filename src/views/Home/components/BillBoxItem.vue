@@ -2,32 +2,63 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-16 18:22:58
- * @LastEditTime: 2022-08-16 21:59:00
+ * @LastEditTime: 2022-09-19 18:33:45
  * @LastEditors: Gavin
 -->
 <template>
   <div class="warp">
-  
-      <van-tag type="primary" class="tag" size="medium">标签</van-tag>
-   
-    <section>
-      <p>2022/08/12</p>
-      <p>12</p>
-      <p><a href="">123</a> dsadsa</p>
-      <p>lende</p>
 
-      
+  
+
+    <section>
+
+      <van-cell-group >
+        <van-cell :title="createTime" :label="item.id">
+        
+          <template #value>
+           <span>创建人：<van-tag type="success" size="medium">{{creator?.name}}</van-tag></span> 
+
+          </template>
+        
+        </van-cell>
+        <p class="user-warp"> <span>参与人:</span> <van-tag  v-for="user in item.sysUsers" :key="user.id" type="primary" size="medium">{{user.name}}</van-tag></p>
+        <van-cell :title="item.name"  :label="item.describe">
+          <template #value>
+
+            <span>CNY    </span>
+            <span style=" margin-left:2px;font-weight:500; font-size:18px; color: black;">   {{item.total}}</span>
+          
+          </template>
+        
+        
+        </van-cell>
+      </van-cell-group>
+      <!-- <p>{{createTime}}</p>
+      <p>{{item.id}}</p>
+      <van-cell title="单元格" value="内容" label="描述信息" />
+      <p>lende</p> -->
+
+
 
     </section>
-    
+
   </div>
 </template>
 
 <script lang='ts' setup>
+import type { BillTable } from "@/model/bill/types"
+import dayjs from "dayjs";
+import { computed } from "vue"
+
 //expects props options
-/*const props = defineProps({
-foo: String
-})*/
+const props = defineProps<{
+  item: BillTable
+
+}>()
+
+const createTime = computed(() => dayjs(props.item.createdAt).format("YYYY-MM-DD"))
+const creator = computed(() => props.item.creator)
+const total =computed(() => props.item.creator)
 //expects emits options
 //const emit = defineEmits(['update', 'delete'])
 </script>
@@ -35,20 +66,30 @@ foo: String
 <style scoped lang='scss'>
 .warp {
 
-position: relative;
+  // position: relative;
+  margin: 0 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  
 
-    .tag {
-      position: absolute;
-      right: 10px;
-      top:0px;
-      // margin: 5px;
-
-    }
-
-  section{
-      margin: 15px 20px;
+  .tag {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    // margin: 5px;
 
   }
+  .user-warp{
+    margin-left: 15px;
+    span{
+      margin-right: 5px;
+    }
+  }
+
+  // section {
+ 
+
+  // }
 
 }
 </style>

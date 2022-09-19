@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 16:53:20
- * @LastEditTime: 2022-09-14 10:47:26
+ * @LastEditTime: 2022-09-18 00:28:43
  * @LastEditors: Gavin
  */
 
@@ -12,7 +12,7 @@ import type {BillTable} from '@/model/bill/types'
 import type {Result} from "@/model/common/types"
 
 
-export function getDetailById(params:{id:number}) {
+export function getDetailById(params:{id:string|Number}) {
   return http.request<any,Result<BillTable>>({
     url:"bill/table",
     method:'GET',
@@ -28,5 +28,12 @@ export function createItem(data:BillTable) {
     method:'POST',
     data,
     
+  })
+}
+export function getTableListByUser() {
+
+  return http.request<any,Result<BillTable[]>>({
+    url:"bill/GetTableListByUserId",
+    method:'GET',    
   })
 }

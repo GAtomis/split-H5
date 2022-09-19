@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 11:57:05
- * @LastEditTime: 2022-09-15 19:09:04
+ * @LastEditTime: 2022-09-17 13:32:40
  * @LastEditors: Gavin
 -->
 <template>
@@ -29,7 +29,7 @@
 
         <van-field class="magb-10" label="创建人" :model-value="creator" readonly />
 
-        <van-field v-model="form.startTime" class="magb-10" is-link readonly name="datePicker" label="发生时间"
+        <van-field v-model="time" class="magb-10" is-link readonly name="datePicker" label="发生时间"
           placeholder="点击选择时间" @click="showPicker = true" />
           <van-field name="radio" class="magb-10" label="分摊方式">
           <template #input>
@@ -91,7 +91,9 @@ import { useRoute } from 'vue-router';
 import useNumKeyBoard from './hooks/useNumKeyBoard'
 import useRecordForm from './hooks/useRecrodForm'
 import useUpload from './hooks/useUpload'
-import type { BillRecrod } from '@/model/bill/types'
+import useTimePicker from  '@/hooks/useTimePicker'
+import dayjs from 'dayjs';
+// import type { BillRecrod } from '@/model/bill/types'
 
 const route = useRoute()
 const user = useUser()
@@ -103,24 +105,38 @@ const currentRecrodType = computed(() => {
   }
   return null
 })
+//输入键盘hooks
 const { amount, showNumKeyBoard, onInput, onDelete } = useNumKeyBoard()
+
+//创建者
 const creator = ref('')
 
-const { form, onSubmit, showPicker,
-  onConfirm, defaultTime } = useRecordForm()
+const { showPicker,
+  onConfirm, defaultTime,time}= useTimePicker()
 
 const { fileList, beforeRead, capture, afterRead, count = 1, imageUrl } = useUpload()
-
+const { form, onSubmit } = useRecordForm()
 watchEffect(() => {
   form.img = imageUrl.value
 })
 watchEffect(() => {
   form.price = amount.value
 })
+watchEffect(() => {
+  form.endTime = dayjs(time.value).valueOf()
+})
 
 onMounted(async () => {
-  form.userId = computed(() => user.sys_user.id).value!
-  creator.value = computed(() => user.sys_user.name).value!
+
+  if(route.query?.id){
+
+  }else{
+
+    form.creatorId=user.sys_user.id as string
+    creator.value = computed(() => user.sys_user.name).value!
+
+  }
+
 })
 
 

@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-13 15:24:08
- * @LastEditTime: 2022-09-14 15:02:22
+ * @LastEditTime: 2022-09-17 12:55:55
  * @LastEditors: Gavin
 -->
 <template>
@@ -11,7 +11,7 @@
     <van-field v-model="form.name" name="pattern" placeholder="输入账单标题" label="标题"
       :rules="[{ required: true, message: '请填写用户名' }]" />
 
-    <van-field v-model="form.startTime" is-link readonly name="datePicker" label="有效期" placeholder="点击选择时间"
+    <van-field v-model="time" is-link readonly name="datePicker" label="有效期" placeholder="点击选择时间"
       @click="showPicker = true" />
 
     <van-field v-model="form.area" is-link readonly name="area" label="地区选择" placeholder="点击选择省市区"
@@ -49,6 +49,8 @@ import { watchEffect } from 'vue'
 import useAreaPicker, { OnAreaConfirm } from '@/hooks/useAreaPicker'
 import { showSuccessToast} from 'vant';
 import {createItem} from '@/api/bill-table-api'
+import dayjs from "dayjs";
+
 
 //expects props options
 const props = defineProps<{
@@ -72,7 +74,7 @@ const onSubmit = async () => {
 
 }
 watchEffect(() => {
-  props.form.startTime = time.value
+  props.form.endTime = dayjs(time.value).valueOf()
 })
 
 

@@ -2,14 +2,14 @@
  * @Description: Home
  * @Author: Gavin
  * @Date: 2022-08-14 15:50:33
- * @LastEditTime: 2022-09-07 19:40:20
+ * @LastEditTime: 2022-09-18 00:25:36
  * @LastEditors: Gavin
 -->
 <template>
 
-  <div class="home">
+  <div class="home ">
 
-    <van-pull-refresh v-model="isLoading" success-text="刷新成功" @refresh="onRefresh" class="layout-content">
+
 
       <!-- 轮播图 -->
       <nav-swipe />
@@ -17,7 +17,7 @@
       <feat-bar></feat-bar>
       <!-- 账单动态 -->
       <bill-box :title="'账单动态'">
-        <bill-box-item></bill-box-item>
+        <bill-box-item @click="handleBillTable(item,index)" v-for="item,index in tableList" :item="item" :key="index"></bill-box-item>
       </bill-box>
 
 
@@ -25,7 +25,7 @@
 
 
 
-    </van-pull-refresh>
+
     <van-button color="#7232dd" type="primary" round class="home-plus" @click="addBills"> &nbsp;&nbsp;&nbsp;
       <van-icon name="plus" />&nbsp;&nbsp;&nbsp;
     </van-button>
@@ -37,46 +37,80 @@
 </template>
 
 <script lang='ts' setup>
-import { usePullRefresh } from './hooks/usePullRefresh'
+// import { usePullRefresh } from './hooks/usePullRefresh'
+//头部轮博
 import NavSwipe from './components/NavSwipe.vue';
-import { ActionSheetAction } from 'vant';
+//弹出组件类型
+import type { ActionSheetAction } from 'vant';
+//功能栏组件
 import FeatBar from './components/FeatBar.vue';
+//table展示
 import BillBox from './components/BillBox.vue';
 import BillBoxItem from './components/BillBoxItem.vue';
-import { ref } from "vue"
-import {useRouter} from "vue-router"
 
-//下拉刷新逻辑
-const { count, loading: isLoading, onRefresh } = usePullRefresh()
+import { ref, onMounted } from "vue"
+import { useRouter } from "vue-router"
+import type { BillTable } from "@/model/bill/types"
+//后台请求
+import { getTableListByUser } from "@/api/bill-table-api"
+
+
 const show = ref(false);
 
 
-const actions:ActionSheetAction [] = [
+const tableList = ref<BillTable[]>([])
+
+const getTables = async () => {
+  const { result } = await getTableListByUser()
+  tableList.value = result
+
+}
+// //下拉刷新逻辑
+// const { count, loading: isLoading, onRefresh } = usePullRefresh(getTables)
+
+onMounted(() => {
+  getTables()
+})
+
+//实例化一个router
+const router = useRouter()
+
+const actions: ActionSheetAction[] = [
   { name: '新建日常账单' },
   { name: '新建笔记' },
 ];
-//实例化一个router
-const router =useRouter()
+
+const handleBillTable:(item:BillTable,index:number)=>void=( {id},index)=>{
+    
+  router.push({
+      path: "/bill/billTable",
+      query:{
+        id
+
+      }
+    })
+}
+
 /**
  * @description: 添加选择菜单
  * @param {*} item
  * @return {*}
  * @Date: 2022-08-22 15:40:23
  */
-const onSelect = (item:ActionSheetAction ) => {
+const onSelect = (item: ActionSheetAction) => {
   // 默认情况下点击选项时不会自动收起
   // 可以通过 close-on-click-action 属性开启自动收起
   switch (item.name) {
-    case "新建日常账单":   router.push({
-      path:"/bill/billTable"
+    case "新建日常账单": router.push({
+      path: "/bill/billTable"
     })
-      
+
       break;
-  
+
     default:
       break;
   }
-  
+
   show.value = false;
 
 };
