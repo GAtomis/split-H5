@@ -21,7 +21,7 @@ export default function useRecordDialog() {
   const form = reactive<BillRecord>({
 
     id:'',
-    creatorId: '',
+    creatorId: useStore.sys_user?.id as string,
     price: "",
     endTime: 0,
     existing: 1,
