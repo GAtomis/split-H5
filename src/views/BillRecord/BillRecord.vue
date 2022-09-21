@@ -2,15 +2,15 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 11:57:05
- * @LastEditTime: 2022-09-17 13:32:40
+ * @LastEditTime: 2022-09-20 19:16:55
  * @LastEditors: Gavin
 -->
 <template>
   <div class=" billRecord   ">
-    <nav v-if="currentRecrodType">
+    <nav v-if="currentRecordType">
       <van-cell-group>
-        <van-cell :title="currentRecrodType.title" :icon="currentRecrodType.icon" size="large" :value="form.price"
-          @click="showNumKeyBoard=true" :label="currentRecrodType.label">
+        <van-cell :title="currentRecordType.title" :icon="currentRecordType.icon" size="large" :value="form.price"
+          @click="showNumKeyBoard=true" :label="currentRecordType.label">
           <!-- 使用 right-icon 插槽来自定义右侧图标 -->
           <template #right-icon>
             <span style="margin-left: 5px;"> {{
@@ -27,7 +27,7 @@
 
       <van-form @submit="onSubmit">
 
-        <van-field class="magb-10" label="创建人" :model-value="creator" readonly />
+        <van-field class="magb-10" label="创建人" :model-value="form.creator?.name" readonly />
 
         <van-field v-model="time" class="magb-10" is-link readonly name="datePicker" label="发生时间"
           placeholder="点击选择时间" @click="showPicker = true" />
@@ -89,27 +89,27 @@ import { computed, ref, onMounted, watchEffect } from 'vue'
 import { useEnum, useUser } from '@/store/pinia'
 import { useRoute } from 'vue-router';
 import useNumKeyBoard from './hooks/useNumKeyBoard'
-import useRecordForm from './hooks/useRecrodForm'
+import useRecordForm from './hooks/useRecordForm'
 import useUpload from './hooks/useUpload'
 import useTimePicker from  '@/hooks/useTimePicker'
 import dayjs from 'dayjs';
-// import type { BillRecrod } from '@/model/bill/types'
+import {useTempTable} from '@/store/pinia'
+// import type { BillRecord } from '@/model/bill/types'
 
 const route = useRoute()
-const user = useUser()
-const currentRecrodType = computed(() => {
-  const recrodTypeEnum = useEnum().recrodTypeEnum
+
+const currentRecordType = computed(() => {
+  const recordTypeEnum = useEnum().recordTypeEnum
   if (route?.query?.type) {
     const currentType = route.query.type as string
-    return recrodTypeEnum.find(item => item.type == +currentType)
+    return recordTypeEnum.find(item => item.type == +currentType)
   }
   return null
 })
 //输入键盘hooks
 const { amount, showNumKeyBoard, onInput, onDelete } = useNumKeyBoard()
 
-//创建者
-const creator = ref('')
+
 
 const { showPicker,
   onConfirm, defaultTime,time}= useTimePicker()
@@ -125,21 +125,18 @@ watchEffect(() => {
 watchEffect(() => {
   form.endTime = dayjs(time.value).valueOf()
 })
+onMounted(()=>{
 
-onMounted(async () => {
+  if (route.query?.id) {
 
-  if(route.query?.id){
+    fileList.value=[{
 
-  }else{
+      url:useTempTable().bill_record.img ,
 
-    form.creatorId=user.sys_user.id as string
-    creator.value = computed(() => user.sys_user.name).value!
-
+    }]
   }
-
+  
 })
-
-
 
 
 //expects props options

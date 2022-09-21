@@ -2,7 +2,7 @@
  * @Description: 路由核心 所有翻译均为机翻 勿6
  * @Author: Gavin
  * @Date: 2021-06-29 16:03:25
- * @LastEditTime: 2022-08-14 16:44:40
+ * @LastEditTime: 2022-09-20 16:40:17
  * @LastEditors: Gavin
  */
 
@@ -16,7 +16,7 @@ import { createGuardHook } from './permission'
 import {allModules,getModel} from './modules'
 import type { ExpandRouteRecordRaw } from '@/model/router'
 
-const layout = () => import('@/layout/index.vue')
+// const layout = () => import('@/layout/index.vue')
 
 //公共的路由表  Public
 export const publicRouteTable: Array<ExpandRouteRecordRaw> = [

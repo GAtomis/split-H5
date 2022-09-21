@@ -2,7 +2,7 @@
  * @Description: 记录
  * @Author: Gavin
  * @Date: 2022-08-23 23:36:58
- * @LastEditTime: 2022-09-07 19:37:48
+ * @LastEditTime: 2022-09-20 17:04:07
  * @LastEditors: Gavin
 -->
 <template>
@@ -10,7 +10,7 @@
 
     <van-search v-model="serachKey" placeholder="请输入想要查询的表单"    @update:model-value="onSearch" />
     <van-cell-group>
-      <van-cell :title="title" :key="type" v-for="{title,icon,label,type}  in recrodList" @click="handleType({title,icon,label,type})" :icon="icon" size="large" :label="label">
+      <van-cell :title="title" :key="type" v-for="{title,icon,label,type}  in recordList" @click="handleType({title,icon,label,type})" :icon="icon" size="large" :label="label">
         <!-- 使用 right-icon 插槽来自定义右侧图标 -->
         <template #right-icon>
 
@@ -32,15 +32,15 @@ foo: String
 
 
 import { ref } from 'vue'
-import {RecrodType} from "@/model/enum/types"
+import {RecordType} from "@/model/enum/types"
 import {useEnum} from '@/store/pinia'
 
 const serachKey = ref('')
-const  defaultRecrod:RecrodType[]=useEnum().recrodTypeEnum
+const  defaultRecord:RecordType[]=useEnum().recordTypeEnum
 //功能列
-const recrodList= ref<RecrodType[]>(defaultRecrod)
+const recordList= ref<RecordType[]>(defaultRecord)
 const onSearch=(key:string)=>{
-  recrodList.value= defaultRecrod.filter(item=>item.title.includes(key)||item.label.includes(key))
+  recordList.value= defaultRecord.filter(item=>item.title.includes(key)||item.label.includes(key))
 }
 
 
@@ -49,7 +49,7 @@ const emit = defineEmits<{
 
 }>()
 //click 选择类型
-const handleType=(item:RecrodType)=>{
+const handleType=(item:RecordType)=>{
   emit('current',item.type)
 }
 </script>

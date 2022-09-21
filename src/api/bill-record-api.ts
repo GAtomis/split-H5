@@ -8,12 +8,12 @@
 
 
 import http from "@/utils/request-api"
-import type {BillRecrod} from '@/model/bill/types'
+import type {BillRecord} from '@/model/bill/types'
 import type {Result} from "@/model/common/types"
 
 
 export function getDetailById(params:{id:number}) {
-  return http.request<any,Result<BillRecrod>>({
+  return http.request<any,Result<BillRecord>>({
     url:"user/user",
     method:'GET',
     params,

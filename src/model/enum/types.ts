@@ -5,7 +5,7 @@
  * @LastEditTime: 2022-09-19 16:18:26
  * @LastEditors: Gavin
  */
-export  type RecrodType={
+export  type RecordType={
   title:string
   icon:string
   label:string

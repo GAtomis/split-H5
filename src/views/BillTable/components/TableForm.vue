@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-13 15:24:08
- * @LastEditTime: 2022-09-17 12:55:55
+ * @LastEditTime: 2022-09-21 18:22:52
  * @LastEditors: Gavin
 -->
 <template>
@@ -24,7 +24,9 @@
 
     <!-- <input type="file" @change="upl" id="fname" name="fname"> -->
     <div style="margin: 16px;" class="magb-10">
-      <van-button round block type="primary" native-type="submit">
+
+      <van-button round  block v-if="submitting" loading type="primary" loading-text="提交中..." />
+      <van-button v-else round block type="primary" native-type="submit">
         提交
       </van-button>
     </div>
@@ -45,12 +47,17 @@
 <script lang='ts' setup>
 import type { BillTable } from "@/model/bill/types"
 import useTimePicker from '@/hooks/useTimePicker'
-import { watchEffect } from 'vue'
+import { watchEffect ,computed,ref} from 'vue'
 import useAreaPicker, { OnAreaConfirm } from '@/hooks/useAreaPicker'
 import { showSuccessToast} from 'vant';
 import {createItem} from '@/api/bill-table-api'
 import dayjs from "dayjs";
-
+function paramsFormat(params:BillTable): BillTable{
+  
+  !isEdit.value&&delete params.id
+  delete params.creator
+    return params
+}
 
 //expects props options
 const props = defineProps<{
@@ -63,15 +70,36 @@ const changeArea: OnAreaConfirm = ({ selectedOptions }) => {
   props.form.area = selectedOptions.map((item) => item!.text).join('/');
 
 }
+const isEdit=computed(()=>props.form?.id&&props.form.id!="")
 //时间选择期逻辑
 const { time,
   showPicker,
   defaultTime,
  onConfirm } = useTimePicker()
-const onSubmit = async () => {
-    await createItem(props.form)
-    showSuccessToast('成功文案');
 
+
+ const submitting=ref(false)
+const onSubmit = async () => {
+  submitting.value=true
+        // console.log(props.form);
+        if(isEdit.value){
+
+          console.log(JSON.stringify(paramsFormat(props.form)));
+          
+          
+            //  console.log( paramsFormat(props.form));
+             
+        }else{
+
+           
+          console.log(JSON.stringify(paramsFormat(props.form)));
+            
+          
+        }
+
+    // await createItem(props.form)
+    showSuccessToast('成功提交');
+    submitting.value=false
 }
 watchEffect(() => {
   props.form.endTime = dayjs(time.value).valueOf()

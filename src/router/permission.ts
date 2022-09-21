@@ -2,7 +2,7 @@
  * @Description: 路由守卫
  * @Author: Gavin
  * @Date: 2021-07-21 09:53:05
- * @LastEditTime: 2022-09-16 15:01:32
+ * @LastEditTime: 2022-09-21 11:58:19
  * @LastEditors: Gavin
  */
 import {
@@ -12,7 +12,7 @@ import {
 } from 'vue-router'
 import { ExpandRouteRecordRaw } from '@/model/router'
 
-import {useUser} from "@/store/pinia"
+import {useUser,useRouteStore} from "@/store/pinia"
 import { showLoadingToast } from 'vant';
 // import store from '@/store'
 // const userStore=useUser()
@@ -91,9 +91,11 @@ export function createGuardHook(router: Router): void {
     
     }
   )
-  // router.afterEach(
-  //   (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+  router.afterEach(
+    (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+      useRouteStore().updateRouteRecord(to,from)
+          
 
-  //   }
-  // )
+    }
+  )
 }

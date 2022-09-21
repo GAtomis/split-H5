@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-09-08 12:07:06
- * @LastEditTime: 2022-09-13 17:57:11
+ * @LastEditTime: 2022-09-20 19:39:43
  * @LastEditors: Gavin
  */
  
@@ -25,9 +25,9 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
       {
         path: 'billTable',
         name: 'BillTable',
-        component: () => import('@/views/Bill/BillTable.vue'),
+        component: () => import('@/views/BillTable/BillTable.vue'),
         meta: {
-          title: '首页',
+          title: '账单信息',
           icon: 'wap-home-o',
           roles: '/bill/billTable',
           cache:true,
@@ -35,9 +35,9 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
         },
       }, 
       {
-        path: 'billRecord',
+        path: 'BillRecord',
         name: 'BillRecord',
-        component: () => import('@/views/Bill/BillRecord.vue'),
+        component: () => import('@/views/BillRecord/BillRecord.vue'),
         meta: {
           title: '账单记录',
           icon: 'wap-home-o',

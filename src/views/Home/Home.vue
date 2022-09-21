@@ -2,7 +2,7 @@
  * @Description: Home
  * @Author: Gavin
  * @Date: 2022-08-14 15:50:33
- * @LastEditTime: 2022-09-18 00:25:36
+ * @LastEditTime: 2022-09-21 11:26:17
  * @LastEditors: Gavin
 -->
 <template>
@@ -102,7 +102,10 @@ const onSelect = (item: ActionSheetAction) => {
   // 可以通过 close-on-click-action 属性开启自动收起
   switch (item.name) {
     case "新建日常账单": router.push({
-      path: "/bill/billTable"
+      path: "/bill/billTable",
+      query:{
+        mode:'new'
+      }
     })
 
       break;

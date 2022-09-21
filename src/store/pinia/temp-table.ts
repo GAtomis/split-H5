@@ -2,14 +2,14 @@
  * @Description: table
  * @Author: Gavin
  * @Date: 2021-12-29 15:13:50
- * @LastEditTime: 2022-09-18 00:43:12
+ * @LastEditTime: 2022-09-21 14:38:56
  * @LastEditors: Gavin
  */
 import { defineStore } from 'pinia'
-import { useLocalStorage } from "@vueuse/core"
+import { useStorage } from "@vueuse/core"
 
 import {TempTableState} from '@/store/types'
-import type {BillRecrod, BillTable} from '@/model/bill/types'
+import type {BillRecord, BillTable} from '@/model/bill/types'
 
 
 export default defineStore("temp-table", {
@@ -27,25 +27,27 @@ export default defineStore("temp-table", {
       bilRecords:[],
       userNum   : 0   ,   
       sysUsers   :[]
+    },
+    billRecord:{
+
+
     }
 
   }),
   getters: {
-    bill_table:state=>state.billTable 
+    bill_table:state=>state.billTable, 
+    bill_record:state=>state.billRecord as BillRecord
   },
   actions: {
     updateTable(item:BillTable){
       this.billTable=item
     },
-    updateBilRecords(record:BillRecrod){
-      const hasRecords=()=>this.billTable.bilRecords.find(item=>item?.id==record?.id)
-      const current=hasRecords()
-      if(record?.id&&current){
-        Object.assign(current,record)
-      }else{
-        this.billTable.bilRecords.push(record)
-      }
-
+    updateBilRecords(billRecord:BillRecord){
+      if (billRecord.id=='') delete billRecord.id
+      this.billRecord=billRecord
+    },
+    clearBilRecord(){
+      this.billRecord={}
     }
 
   },

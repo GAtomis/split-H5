@@ -8,7 +8,7 @@
 //枚举
 
 import {ref} from "vue"
-export function useRecrodDialog(){
+export function useRecordDialog(){
 
   const isShow= ref(false)
   const addBillRecord=()=>{

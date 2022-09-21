@@ -2,7 +2,7 @@
  * @Description: 框架
  * @Author: Gavin
  * @Date: 2022-08-14 15:03:42
- * @LastEditTime: 2022-09-13 11:49:38
+ * @LastEditTime: 2022-09-20 19:43:38
  * @LastEditors: Gavin
 -->
 
@@ -14,13 +14,10 @@
 
       <router-view v-slot="{ Component, route }">
       <transition :name="route.meta.transition as string || 'fade'" mode="out-in">
-        <keep-alive v-if="route.meta.cache">
-          <component class="layout-content" :is="Component" :key="route.fullPath" />
+        <keep-alive  :include="cache">
+          <component class="layout-content" :is="Component"  />
         </keep-alive>
-        <template v-else>
-          <component class="layout-content" :is="Component" :key="route.fullPath" />
-        </template>
-
+  
       </transition>
     </router-view>
     </main>
@@ -34,7 +31,15 @@
 <script lang='ts' setup>
 import LayTabbar from "./components/MainBar.vue"
 import NavBar from './components/NavBar.vue'
+import {filterChildren} from "@/hooks/useRouteFilter"
+import {publicRouteTable} from "@/router"
+import {computed} from "vue"
 
+
+ const cache= computed(()=>{
+      return filterChildren(publicRouteTable,route=>!!route.meta?.cache).map(item=>item.name as string)
+
+})
 
 
 //expects props options

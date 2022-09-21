@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-14 16:23:36
- * @LastEditTime: 2022-09-18 10:40:16
+ * @LastEditTime: 2022-09-21 10:44:23
  * @LastEditors: Gavin
 -->
 <template>
@@ -54,7 +54,7 @@ foo: String
 <style scoped lang='scss'>
 .Login{
   height: 100vh;
-  background-color: var(--van-background-2)
+  background-color: var(--van-background)
 }
 
 header {

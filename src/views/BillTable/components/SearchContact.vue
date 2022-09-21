@@ -2,7 +2,7 @@
  * @Description: 检索联系人
  * @Author: Gavin
  * @Date: 2022-09-18 23:32:44
- * @LastEditTime: 2022-09-19 19:12:34
+ * @LastEditTime: 2022-09-21 11:37:53
  * @LastEditors: Gavin
 -->
 <template>
@@ -43,13 +43,8 @@ const list = ref<ContactListItem[]>([
 const searchKey = ref('')
 
 const onInput: (v: string) => void = (searchKey) => {
-
   if (searchKey == '') return
-
-
   debounce(searchKey)
-
-
 
 }
 const emit = defineEmits<{
@@ -58,7 +53,7 @@ const emit = defineEmits<{
 const onSelect = (item:any) => {
   currentUser.value=toRaw<ContactListItem>(item)
   
-  // emit('onSelect', chosenContactId.value)
+
 }
 
 const onSubmit = () => {
