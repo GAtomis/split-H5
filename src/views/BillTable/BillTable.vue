@@ -2,7 +2,7 @@
  * @Description: 日常账单
  * @Author: Gavin
  * @Date: 2022-08-22 15:48:43
- * @LastEditTime: 2022-09-21 16:39:03
+ * @LastEditTime: 2022-09-21 19:57:49
  * @LastEditors: Gavin
 -->
 <template>
@@ -10,7 +10,6 @@
      <div class="home ">
 
           <van-skeleton title avatar :row="18" :loading="loading" :class="loading&&'bg-white'">
-
                <UserCell v-model:form="form" />
                <nav>
                     <van-cell center>
@@ -43,7 +42,6 @@
                     </van-cell>
                </nav>
                <main>
-
                     <van-tabs v-model:active="active" swipeable>
                          <van-tab :title="'账单信息'" :name="'form'">
                               <section>
@@ -63,24 +61,17 @@
                                         <template #title>
                                              <span class="title">费用记录</span>
                                         </template>
-
                                    </van-cell>
-
                                    <van-swipe-cell v-for=" item,index in bilRecords" :key="index">
                                         <van-card num="1" :price="item.price" :desc="item.describe"
                                              :title="`类型:${useEnum().getRecordTypeItem(item.type)?.title}`"
                                              @click="handleEdit(item)" class="goods-card"
                                              :thumb="item.img||`https://img2.baidu.com/it/u=2840961417,55008201&fm=253&fmt=auto&app=138&f=JPG?w=500&h=500`">
-
-
-
                                              <template #tags>
                                                   <span>创建人：</span>
                                                   <van-tag plain type="primary">{{item.creator?.name}}</van-tag>
                                              </template>
                                         </van-card>
-
-
                                         <template #right>
                                              <van-button square text="删除" @click="deleteRecord(item,index)"
                                                   type="danger" class="delete-button" />
@@ -97,14 +88,8 @@
                               </section>
                          </van-tab>
                     </van-tabs>
-
-
-
-
                </main>
-
                <footer>
-
                     <van-action-sheet v-model:show="isShow" title="选择记录类型">
                          <div class="content">
                               <RecordType @current="handleCurrent">
@@ -112,17 +97,9 @@
 
                          </div>
                     </van-action-sheet>
-
-
-
-
                </footer>
-
           </van-skeleton>
-
-
      </div>
-
 </template>
 
 <script lang='ts' setup>

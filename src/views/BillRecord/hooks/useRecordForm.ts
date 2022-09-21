@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-23 01:06:13
- * @LastEditTime: 2022-09-21 14:27:56
+ * @LastEditTime: 2022-09-21 19:58:03
  * @LastEditors: Gavin
  */
 //枚举
@@ -19,7 +19,6 @@ export default function useRecordDialog() {
   const tempStore = useTempTable()
   const useStore=useUser()
   const form = reactive<BillRecord>({
-
     id:'',
     creatorId: useStore.sys_user?.id as string,
     price: "",
