@@ -2,14 +2,14 @@
  * @Description: tabar
  * @Author: Gavin
  * @Date: 2022-08-14 15:05:26
- * @LastEditTime: 2022-09-13 15:46:30
+ * @LastEditTime: 2022-09-22 16:57:05
  * @LastEditors: Gavin
 -->
 
 <template>
 
-  <van-tabbar v-model="active">
-    <van-tabbar-item :name="item.path" :icon="(item.icon as string)" :key="index" v-for="item,index  of tabarList">{{item.name}}</van-tabbar-item>
+  <van-tabbar v-model="active" >
+    <van-tabbar-item :name="item.name" :icon="(item.icon as string)" :to="'/layout/'+item.path" :key="index" v-for="item,index  of tabarList">{{item.title}}</van-tabbar-item>
  
   </van-tabbar>
 
@@ -17,9 +17,12 @@
 
 <script lang='ts' setup>
 
-import { ref, computed } from "vue"
+import { ref, computed,onMounted } from "vue"
+import {useRoute,useRouter} from 'vue-router'
 import menu from '@/router/modules/menu'
 let [item] = menu
+const route=useRoute()
+
 
 
 const tabarList = computed(() => {
@@ -29,17 +32,23 @@ const tabarList = computed(() => {
   return res?.map(item => {
     return {
       path: item.path,
-      name: item.meta?.title ?? "default",
-      icon: item.meta?.icon ?? "default"
+      title: item.meta?.title ?? "default",
+      icon: item.meta?.icon ?? "default",    
+      name:item.name as string
     }
 
   }) ?? []
 
 })
+const active = ref(route.name?.toString())
+
+// onMounted(()=>{
+
+//   active.value=route.name as string
+// })
 
 
 
-const active = ref(0);
 
 //expects props options
 /*const props = defineProps({

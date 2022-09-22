@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 16:53:20
- * @LastEditTime: 2022-09-18 00:28:43
+ * @LastEditTime: 2022-09-22 10:23:30
  * @LastEditors: Gavin
  */
 
@@ -37,3 +37,13 @@ export function getTableListByUser() {
     method:'GET',    
   })
 }
+export function updateItem(data:BillTable) {
+
+  return http.request<any,Result<string>>({
+    url:"bill/table",
+    method:'PUT', 
+    data   
+  })
+}
+
+

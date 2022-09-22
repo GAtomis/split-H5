@@ -2,11 +2,11 @@
  * @Description: 账单动态
  * @Author: Gavin
  * @Date: 2022-08-16 18:21:06
- * @LastEditTime: 2022-08-16 21:40:23
+ * @LastEditTime: 2022-09-22 14:53:21
  * @LastEditors: Gavin
 -->
 <template>
- <div class="wrap-content warp">
+ <div class="wrap-content warp ">
     <header>{{title}}</header>
     <van-divider />
     <section>   
@@ -25,6 +25,14 @@ const props = defineProps<{
 </script>
 
 <style scoped lang='scss'>
+  .warp{
+
+    padding: 3px;
+  }
+
+section{
+  // padding-bottom: 5px;
+}
 header{
   margin-left: 10px;
   font-size: 18px;

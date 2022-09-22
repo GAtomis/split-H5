@@ -2,7 +2,7 @@
  * @Description: 框架
  * @Author: Gavin
  * @Date: 2022-08-14 15:03:42
- * @LastEditTime: 2022-09-20 19:43:38
+ * @LastEditTime: 2022-09-22 17:32:04
  * @LastEditors: Gavin
 -->
 
@@ -22,19 +22,20 @@
     </router-view>
     </main>
 
-    <LayTabbar />
+    <TabBar  v-if="route.meta.type=='menu'"/>
 
   </section>
 
 </template>
 
 <script lang='ts' setup>
-import LayTabbar from "./components/MainBar.vue"
+import TabBar from "./components/TabBar.vue"
 import NavBar from './components/NavBar.vue'
 import {filterChildren} from "@/hooks/useRouteFilter"
 import {publicRouteTable} from "@/router"
 import {computed} from "vue"
-
+import { useRoute } from "vue-router"
+const route=useRoute()
 
  const cache= computed(()=>{
       return filterChildren(publicRouteTable,route=>!!route.meta?.cache).map(item=>item.name as string)
@@ -60,4 +61,13 @@ main {
   overflow-y: scroll;
   background-color: #eee;
 }
+
+.fade-enter-active,.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,.fade-leave-to {
+  opacity: 0;
+}
+
 </style>

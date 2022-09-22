@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 11:57:05
- * @LastEditTime: 2022-09-20 19:16:55
+ * @LastEditTime: 2022-09-22 13:38:54
  * @LastEditors: Gavin
 -->
 <template>
@@ -97,7 +97,7 @@ import {useTempTable} from '@/store/pinia'
 // import type { BillRecord } from '@/model/bill/types'
 
 const route = useRoute()
-
+const { form, onSubmit } = useRecordForm()
 const currentRecordType = computed(() => {
   const recordTypeEnum = useEnum().recordTypeEnum
   if (route?.query?.type) {
@@ -112,19 +112,24 @@ const { amount, showNumKeyBoard, onInput, onDelete } = useNumKeyBoard()
 
 
 const { showPicker,
-  onConfirm, defaultTime,time}= useTimePicker()
+  onConfirm, numToTimeFormat,defaultTime,time}= useTimePicker((time)=>{
+      form.endTime= dayjs(time).valueOf()
 
+ })
+
+
+ watchEffect(()=>{
+   time.value=numToTimeFormat(form.endTime)
+ })
 const { fileList, beforeRead, capture, afterRead, count = 1, imageUrl } = useUpload()
-const { form, onSubmit } = useRecordForm()
+
 watchEffect(() => {
   form.img = imageUrl.value
 })
 watchEffect(() => {
   form.price = amount.value
 })
-watchEffect(() => {
-  form.endTime = dayjs(time.value).valueOf()
-})
+
 onMounted(()=>{
 
   if (route.query?.id) {

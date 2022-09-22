@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-21 10:50:27
- * @LastEditTime: 2022-09-21 15:49:19
+ * @LastEditTime: 2022-09-22 11:22:30
  * @LastEditors: Gavin
 -->
 <template>
@@ -79,6 +79,11 @@ const offSysUserShow = (user: UserInfo | any) => {
 
      isSysUserShow.value = false
 }
+
+
+defineExpose({
+  isSysUserShow
+})
 
 </script>
 

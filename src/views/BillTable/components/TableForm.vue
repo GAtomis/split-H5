@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-13 15:24:08
- * @LastEditTime: 2022-09-21 18:22:52
+ * @LastEditTime: 2022-09-22 15:21:54
  * @LastEditors: Gavin
 -->
 <template>
@@ -50,14 +50,17 @@ import useTimePicker from '@/hooks/useTimePicker'
 import { watchEffect ,computed,ref} from 'vue'
 import useAreaPicker, { OnAreaConfirm } from '@/hooks/useAreaPicker'
 import { showSuccessToast} from 'vant';
-import {createItem} from '@/api/bill-table-api'
+import {createItem,updateItem} from '@/api/bill-table-api'
 import dayjs from "dayjs";
+
+
 function paramsFormat(params:BillTable): BillTable{
   
   !isEdit.value&&delete params.id
   delete params.creator
     return params
 }
+  
 
 //expects props options
 const props = defineProps<{
@@ -75,10 +78,21 @@ const isEdit=computed(()=>props.form?.id&&props.form.id!="")
 const { time,
   showPicker,
   defaultTime,
- onConfirm } = useTimePicker()
+  numToTimeFormat,
+ onConfirm } = useTimePicker((time)=>{
+    props.form.endTime= dayjs(time).valueOf()
+
+ })
 
 
+ watchEffect(()=>{
+   time.value=numToTimeFormat(props.form.endTime)
+
+ })
  const submitting=ref(false)
+
+
+
 const onSubmit = async () => {
   submitting.value=true
         // console.log(props.form);
@@ -88,12 +102,14 @@ const onSubmit = async () => {
           
           
             //  console.log( paramsFormat(props.form));
-             
+
+          const {msg}=  await updateItem(paramsFormat(props.form))
+          showSuccessToast(msg)
         }else{
 
            
-          console.log(JSON.stringify(paramsFormat(props.form)));
-            
+          const {msg}=  await createItem(paramsFormat(props.form))
+          showSuccessToast(msg)
           
         }
 
@@ -101,9 +117,8 @@ const onSubmit = async () => {
     showSuccessToast('成功提交');
     submitting.value=false
 }
-watchEffect(() => {
-  props.form.endTime = dayjs(time.value).valueOf()
-})
+
+
 
 
 

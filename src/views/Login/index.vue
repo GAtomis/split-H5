@@ -2,22 +2,23 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-14 16:23:36
- * @LastEditTime: 2022-09-21 10:44:23
+ * @LastEditTime: 2022-09-22 17:23:42
  * @LastEditors: Gavin
 -->
 <template>
   <div class="Login">
 
-    <van-nav-bar :title="$route.meta.title as  string " :right-text="title" @click-right="onClickRight" />
-    <header>
+    <van-nav-bar :title="$route.meta.title as  string"  s:right-text="title"  @click-right="onClickRight"   />
 
-      <van-image class="logo" :src="logoUrl" />
+    
+    <header>
+          <van-image class="logo" :src="logoUrl" />
     </header>
 
     <router-view v-slot="{ Component, route }">
        <transition :name="route.meta.transition as string|| 'fade'" mode="out-in">
         <keep-alive>
-            <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+            <component :is="Component" />
         </keep-alive>
       </transition>
     </router-view>

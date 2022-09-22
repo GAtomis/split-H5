@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-09-08 12:07:06
- * @LastEditTime: 2022-08-16 16:32:31
+ * @LastEditTime: 2022-09-22 17:31:23
  * @LastEditors: Gavin
  */
  
@@ -33,21 +33,21 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
           type:'menu'
         },
       },
-      {
-        path: 'operate',
-        name: 'Operate',
-        component: () => import('@/views/Home/Home.vue'),
-        meta: {
-          title: '运营',
-          icon: 'cluster-o',
-          roles: '/operate',
-          type:'menu'
-        },
-      },
+      // {
+      //   path: 'operate',
+      //   name: 'Operate',
+      //   component: () => import('@/views/Home/Home.vue'),
+      //   meta: {
+      //     title: '运营',
+      //     icon: 'cluster-o',
+      //     roles: '/operate',
+      //     type:'menu'
+      //   },
+      // },
       {
         path: 'user',
         name: 'User',
-        component: () => import('@/views/Home/Home.vue'),
+        component: () => import('@/views/User/User.vue'),
         meta: {
           title: '我的',
           icon: 'user-circle-o',

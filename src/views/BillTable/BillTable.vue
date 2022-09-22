@@ -2,7 +2,7 @@
  * @Description: 日常账单
  * @Author: Gavin
  * @Date: 2022-08-22 15:48:43
- * @LastEditTime: 2022-09-21 19:57:49
+ * @LastEditTime: 2022-09-22 14:48:47
  * @LastEditors: Gavin
 -->
 <template>
@@ -10,7 +10,7 @@
      <div class="home ">
 
           <van-skeleton title avatar :row="18" :loading="loading" :class="loading&&'bg-white'">
-               <UserCell v-model:form="form" />
+               <UserCell ref="tableForm" v-model:form="form" />
                <nav>
                     <van-cell center>
                          <template #title>
@@ -68,14 +68,34 @@
                                              @click="handleEdit(item)" class="goods-card"
                                              :thumb="item.img||`https://img2.baidu.com/it/u=2840961417,55008201&fm=253&fmt=auto&app=138&f=JPG?w=500&h=500`">
                                              <template #tags>
-                                                  <span>创建人：</span>
-                                                  <van-tag plain type="primary">{{item.creator?.name}}</van-tag>
+                                                  <p  style="line-height: 30px;"> <span class="record-card-tag">创建人： <van-tag type="primary">
+                                                                 {{item.creator?.name}}
+                                                            </van-tag></span> 
+                                                       
+                                                       
+                                                            <span class="record-card-tag">分摊方式： <van-tag type="success">
+                                                                 {{useEnum().existingEnum.find(im=>im.value==item.existing)?.label??"未知"}}
+                                                            </van-tag></span>
+                                                       </p>
+<!-- 
+                                                  <p style="margin-bottom: 5px;">
+
+
+                                                       <span class="record-card-tag">分摊方式： <van-tag type="success">
+                                                                 {{useEnum().existingEnum.find(im=>im.value==item.existing)?.label??"未知"}}
+                                                            </van-tag></span>
+                                                  </p> -->
+
+
                                              </template>
+
                                         </van-card>
                                         <template #right>
                                              <van-button square text="删除" @click="deleteRecord(item,index)"
                                                   type="danger" class="delete-button" />
                                         </template>
+
+
                                    </van-swipe-cell>
                                    <van-cell center>
                                         <template #title>
@@ -103,7 +123,7 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, onActivated, onDeactivated, ref, watchEffect, toRaw } from 'vue';
+import { computed, onActivated, onDeactivated, ref, watchEffect, toRaw, onMounted } from 'vue';
 import type { BillRecord, BillTable } from "@/model/bill/types"
 import { useUser, useTempTable, useEnum, useRouteStore } from '@/store/pinia'
 import { useRecordDialog } from "./hooks/useRecordDialog"
@@ -112,17 +132,19 @@ import UserCell from './components/UserCell.vue'
 import { useRouter, useRoute } from "vue-router";
 import { getDetailById } from "@/api/bill-table-api"
 import TableForm from './components/TableForm.vue'
+import dayjs from 'dayjs';
 
 
-
-
+//新建记录弹窗
 const { isShow, addBillRecord } = useRecordDialog()
 const router = useRouter()
 const route = useRoute()
 const tempTable = useTempTable()
+//路由状态管理
 const routeStore = useRouteStore()
-
+//当前登陆用户
 const currentUser = toRaw(useUser().sys_user)
+
 
 
 const active = ref("form")
@@ -133,7 +155,7 @@ const defaultForm = () => ({
      creatorId: currentUser.id as string,
      creator: currentUser,
      describe: '',
-     endTime: 0,
+     endTime: dayjs().valueOf(),
      total: '',
      state: 1,
      bilRecords: [],
@@ -185,6 +207,10 @@ const getBillTable = async (id: string) => {
      })
 
 
+
+
+
+
 }
 watchEffect(() => {
      form.value.userNum = form.value.sysUsers?.length ?? 0
@@ -230,6 +256,8 @@ onActivated(async () => {
      if (route.query?.id) {
           const id = route.query?.id as string
           await getBillTable(id)
+
+
      }
      loading.value = false
 
@@ -297,6 +325,17 @@ main {
           .goods-card {
                margin: 0;
                background-color: #fff;
+
+
+          }
+
+          .record-card-tag {
+
+
+
+               margin-right: 10px;
+
+
           }
 
           .delete-button {

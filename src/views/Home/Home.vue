@@ -2,14 +2,14 @@
  * @Description: Home
  * @Author: Gavin
  * @Date: 2022-08-14 15:50:33
- * @LastEditTime: 2022-09-21 11:26:17
+ * @LastEditTime: 2022-09-22 16:23:14
  * @LastEditors: Gavin
 -->
 <template>
 
   <div class="home ">
 
-
+  
 
       <!-- 轮播图 -->
       <nav-swipe />
@@ -26,8 +26,8 @@
 
 
 
-    <van-button color="#7232dd" type="primary" round class="home-plus" @click="addBills"> &nbsp;&nbsp;&nbsp;
-      <van-icon name="plus" />&nbsp;&nbsp;&nbsp;
+    <van-button  icon="plus" type="primary" round class="home-plus" @click="addBills"> 
+     
     </van-button>
 
     <van-action-sheet v-model:show="show" :actions="actions" cancel-text="取消" close-on-click-action
@@ -132,12 +132,14 @@ foo: String
 <style scoped lang='scss'>
 .home {
   position: relative;
+  margin-bottom: 10px;
 
   &-plus {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    position: fixed;
+    bottom: 80px;
+    right: 4%;
+    opacity: .5;
+    // transform: translateX(-50%);
 
   }
 

@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-23 01:06:13
- * @LastEditTime: 2022-09-21 19:58:03
+ * @LastEditTime: 2022-09-22 13:50:30
  * @LastEditors: Gavin
  */
 //枚举
@@ -13,6 +13,9 @@ import { useRouter, useRoute, } from 'vue-router';
 // import  utc from 'dayjs/plugin/utc'
 import { useTempTable,useUser } from '@/store/pinia'
 import type { BillRecord } from "@/model/bill/types"
+import dayjs from "dayjs";
+
+
 export default function useRecordDialog() {
   const router = useRouter()
   const route = useRoute()
@@ -22,7 +25,7 @@ export default function useRecordDialog() {
     id:'',
     creatorId: useStore.sys_user?.id as string,
     price: "",
-    endTime: 0,
+    endTime:  dayjs().valueOf(),
     existing: 1,
     type: +(route.query?.type ?? 1),
     img: '',

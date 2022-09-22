@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-16 18:22:58
- * @LastEditTime: 2022-09-19 18:33:45
+ * @LastEditTime: 2022-09-22 15:10:41
  * @LastEditors: Gavin
 -->
 <template>
@@ -13,7 +13,7 @@
     <section>
 
       <van-cell-group >
-        <van-cell :title="createTime" :label="item.id">
+        <van-cell size="large"  :title="item.name"   >
         
           <template #value>
            <span>创建人：<van-tag type="success" size="medium">{{creator?.name}}</van-tag></span> 
@@ -22,7 +22,8 @@
         
         </van-cell>
         <p class="user-warp"> <span>参与人:</span> <van-tag  v-for="user in item.sysUsers" :key="user.id" type="primary" size="medium">{{user.name}}</van-tag></p>
-        <van-cell :title="item.name"  :label="item.describe">
+
+        <van-cell   icon="location-o" :title="item.area" :label="item.describe">
           <template #value>
 
             <span>CNY    </span>
@@ -32,6 +33,8 @@
         
         
         </van-cell>
+
+        <p class="timezone"><span>有效期：{{createTime}}</span> </p>
       </van-cell-group>
       <!-- <p>{{createTime}}</p>
       <p>{{item.id}}</p>
@@ -85,7 +88,12 @@ const total =computed(() => props.item.creator)
       margin-right: 5px;
     }
   }
+  .timezone{
+   padding: 5px 10px ;
+    text-align: right;
 
+    color:var(--van-text-color-2) ;
+  }
   // section {
  
 
