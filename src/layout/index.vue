@@ -2,7 +2,7 @@
  * @Description: 框架
  * @Author: Gavin
  * @Date: 2022-08-14 15:03:42
- * @LastEditTime: 2022-09-22 17:32:04
+ * @LastEditTime: 2022-09-22 18:57:14
  * @LastEditors: Gavin
 -->
 
@@ -35,6 +35,7 @@ import {filterChildren} from "@/hooks/useRouteFilter"
 import {publicRouteTable} from "@/router"
 import {computed} from "vue"
 import { useRoute } from "vue-router"
+import { finished } from "stream"
 const route=useRoute()
 
  const cache= computed(()=>{

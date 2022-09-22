@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-07 18:01:50
- * @LastEditTime: 2022-09-16 14:58:10
+ * @LastEditTime: 2022-09-22 17:39:51
  * @LastEditors: Gavin
  */
 
@@ -23,10 +23,10 @@ const count=1
 const beforeRead = (file:any) => {
   console.warn(file.type !== 'image/png')
   
-  if (file.type !== 'image/jpeg'&&file.type !== 'image/png') {
-    showToast('请上传 jpg/png 格式图片');
-    return false;
-  }
+  // if (file.type !== 'image/jpeg'&&file.type !== 'image/png') {
+  //   showToast('请上传 jpg/png 格式图片');
+  //   return false;
+  // }
 
   if (file.type>4000000) {
     showToast('请图片不大于4mb');

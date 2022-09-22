@@ -1,18 +1,50 @@
 <template>
- <div>
-      <img src="https://pics1.baidu.com/feed/b8014a90f603738d2f8491b948346d56f919ec13.jpeg" alt="">
+ <div class="cover-background">
+  <van-image
+  round
+  width="80px"
+  height="80px"
+  class="user-avatar"
+  src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+/>
+  <p class="user-name">{{info.name}}</p>
  </div>
 </template>
 
 <script lang='ts' setup>
 //expects props options
-/*const props = defineProps({
-foo: String
-})*/
+import {computed} from 'vue'
+import{UserInfo} from '@/model/user/types'
+
+const props = defineProps <{
+  info:UserInfo
+}> ()
+const rigth=computed(()=>((props.info.name?.length??0)*10+76).toString()+'px')
 //expects emits options
 //const emit = defineEmits(['update', 'delete'])
 </script>
 
 <style scoped lang='scss'>
+  .cover-background{
+    position: relative;
+    width: 100%;
+    height: 22vh;
+    background:url(https://s2.loli.net/2022/09/22/En26oxzayCF9Beg.webp);
+    background-size: cover;
+    .user-avatar{
+      position: absolute;
+      bottom: -25px;
+      right:5px;
+    }
+    .user-name{
+      position: absolute;
+      bottom: 0px;
+      right:v-bind(rigth);;
+      color: #fff;
+      font-size: 20px ;
+      font-weight: 600;
+    }
+  }
+ 
 
 </style>
