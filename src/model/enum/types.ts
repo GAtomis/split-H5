@@ -2,7 +2,7 @@
  * @Description: 枚举类型
  * @Author: Gavin
  * @Date: 2022-09-06 14:50:00
- * @LastEditTime: 2022-09-22 14:27:47
+ * @LastEditTime: 2022-09-24 22:16:50
  * @LastEditors: Gavin
  */
 export  type RecordType={
@@ -23,3 +23,5 @@ export type ExistingEnum ={
   value:number
 
 }
+
+export type Theme ='light'|'dark'

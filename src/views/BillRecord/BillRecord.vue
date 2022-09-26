@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 11:57:05
- * @LastEditTime: 2022-09-22 13:38:54
+ * @LastEditTime: 2022-09-24 14:49:30
  * @LastEditors: Gavin
 -->
 <template>
@@ -43,7 +43,7 @@
         <van-field class="magb-10" name="uploader" label="头像上传">
           <template #input>
             <div>
-              <van-uploader v-model="fileList" :capture="capture" :after-read="afterRead" :before-read="beforeRead"
+              <van-uploader v-model="fileList" :after-read="afterRead" :before-read="beforeRead"
                 multiple :max-count="count" />
               <p>附件限制：最多1个，单个不超过10M</p>
             </div>
@@ -94,6 +94,7 @@ import useUpload from './hooks/useUpload'
 import useTimePicker from  '@/hooks/useTimePicker'
 import dayjs from 'dayjs';
 import {useTempTable} from '@/store/pinia'
+
 // import type { BillRecord } from '@/model/bill/types'
 
 const route = useRoute()

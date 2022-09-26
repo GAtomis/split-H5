@@ -2,7 +2,7 @@
  * @Description: 路由守卫
  * @Author: Gavin
  * @Date: 2021-07-21 09:53:05
- * @LastEditTime: 2022-09-21 11:58:19
+ * @LastEditTime: 2022-09-24 09:53:46
  * @LastEditors: Gavin
  */
 import {
@@ -11,6 +11,7 @@ import {
   NavigationGuardNext,
 } from 'vue-router'
 import { ExpandRouteRecordRaw } from '@/model/router'
+import {useTitle} from '@vueuse/core'
 
 import {useUser,useRouteStore} from "@/store/pinia"
 import { showLoadingToast } from 'vant';
@@ -95,7 +96,8 @@ export function createGuardHook(router: Router): void {
     (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
       useRouteStore().updateRouteRecord(to,from)
           
-
+      const title = useTitle()
+      title.value=to.meta.title as string
     }
   )
 }

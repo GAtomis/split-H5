@@ -2,32 +2,48 @@
  * @Description: Home
  * @Author: Gavin
  * @Date: 2022-08-14 15:50:33
- * @LastEditTime: 2022-09-22 16:23:14
+ * @LastEditTime: 2022-09-26 15:47:16
  * @LastEditors: Gavin
 -->
 <template>
 
   <div class="home ">
 
-  
-
-      <!-- 轮播图 -->
-      <nav-swipe />
-      <!-- 功能栏 -->
-      <feat-bar></feat-bar>
-      <!-- 账单动态 -->
-      <bill-box :title="'账单动态'">
-        <bill-box-item @click="handleBillTable(item,index)" v-for="item,index in tableList" :item="item" :key="index"></bill-box-item>
-      </bill-box>
 
 
+    <!-- 轮播图 -->
+    <nav-swipe />
+    <!-- 功能栏 -->
+    <feat-bar class="feat-bar"></feat-bar>
+    <!-- 账单动态 -->
+    <bill-box :title="'账单动态'">
+
+
+      <van-skeleton title :row="8" :loading="loading">
+      
+
+        <section v-if="isEmpty">
+          <bill-box-item class="bill-item-warp" @click="handleBillTable(item,index)" v-for="item,index in tableList"
+            :item="item" :key="index">
+          </bill-box-item>
+        </section>
+        <section v-else>
+          <van-empty description="当前还没有账单" />
+        </section>
+
+      </van-skeleton>
+
+
+    </bill-box>
 
 
 
 
 
-    <van-button  icon="plus" type="primary" round class="home-plus" @click="addBills"> 
-     
+
+
+    <van-button icon="plus" type="primary" round class="home-plus" @click="addBills">
+
     </van-button>
 
     <van-action-sheet v-model:show="show" :actions="actions" cancel-text="取消" close-on-click-action
@@ -48,7 +64,7 @@ import FeatBar from './components/FeatBar.vue';
 import BillBox from './components/BillBox.vue';
 import BillBoxItem from './components/BillBoxItem.vue';
 
-import { ref, onMounted } from "vue"
+import { ref, onMounted,computed } from "vue"
 import { useRouter } from "vue-router"
 import type { BillTable } from "@/model/bill/types"
 //后台请求
@@ -59,10 +75,18 @@ const show = ref(false);
 
 
 const tableList = ref<BillTable[]>([])
-
+const isEmpty=computed(()=>tableList.value.length)
+const loading = ref(false)
 const getTables = async () => {
-  const { result } = await getTableListByUser()
-  tableList.value = result
+  loading.value = true
+  const { result } = await getTableListByUser({
+    page:1,
+    pageSize:10
+  })
+
+  result.item
+  tableList.value = result.item
+  loading.value = false
 
 }
 // //下拉刷新逻辑
@@ -80,15 +104,15 @@ const actions: ActionSheetAction[] = [
   { name: '新建笔记' },
 ];
 
-const handleBillTable:(item:BillTable,index:number)=>void=( {id},index)=>{
-    
-  router.push({
-      path: "/bill/billTable",
-      query:{
-        id
+const handleBillTable: (item: BillTable, index: number) => void = ({ id }, index) => {
 
-      }
-    })
+  router.push({
+    path: "/bill/billTable",
+    query: {
+      id
+
+    }
+  })
 }
 
 /**
@@ -102,9 +126,9 @@ const onSelect = (item: ActionSheetAction) => {
   // 可以通过 close-on-click-action 属性开启自动收起
   switch (item.name) {
     case "新建日常账单": router.push({
-      path: "/bill/billTable",
-      query:{
-        mode:'new'
+      name: "BillForm",
+      query: {
+        mode: 'new'
       }
     })
 
@@ -134,6 +158,11 @@ foo: String
   position: relative;
   margin-bottom: 10px;
 
+  .feat-bar {
+
+    min-height: 102px;
+  }
+
   &-plus {
     position: fixed;
     bottom: 80px;
@@ -141,6 +170,16 @@ foo: String
     opacity: .5;
     // transform: translateX(-50%);
 
+
+  }
+
+  .bill-item-warp {
+    // position: relative;
+    margin: 0 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    border: 1px solid var(--van-border-color);
+    ;
   }
 
 

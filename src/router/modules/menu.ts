@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-09-08 12:07:06
- * @LastEditTime: 2022-09-22 17:31:23
+ * @LastEditTime: 2022-09-24 10:20:29
  * @LastEditors: Gavin
  */
  
@@ -49,7 +49,7 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
         name: 'User',
         component: () => import('@/views/User/User.vue'),
         meta: {
-          title: '我的',
+          title: '用户',
           icon: 'user-circle-o',
           roles: '/layout/user',
           type:'menu'

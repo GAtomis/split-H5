@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 16:26:25
- * @LastEditTime: 2022-09-21 14:22:18
+ * @LastEditTime: 2022-09-24 17:54:43
  * @LastEditors: Gavin
  */
 
@@ -10,6 +10,22 @@
 
 
 import type { UserInfo} from "@/model/user/types"
+
+export type BillTableInfo={
+    id?      : number|string
+    name      : string     
+	describe  : string      
+	endTime   :number
+	state     : number  
+	userNum   : number 
+    sysUsers?  :UserInfo[]  
+    area:string   
+    creatorId:string
+    creator?:UserInfo
+    createdAt?:string
+    updatedAt?:string   
+}
+
 export type BillTable={
     id?      : number|string
 	name      : string     
@@ -37,10 +53,9 @@ export type BillRecord={
     type:number,
     img:string,
     area:string   
-    tableId?:number,
+    tableId?:string|number,
     describe:string,
     createdAt?:string
     updatedAt?:string
-    [key: string]: any
-    
+    [key: string]: any  
 }

@@ -2,7 +2,7 @@
  * @Description: 注册
  * @Author: Gavin
  * @Date: 2022-08-14 18:09:46
- * @LastEditTime: 2022-09-17 11:41:02
+ * @LastEditTime: 2022-09-24 23:33:56
  * @LastEditors: Gavin
 -->
 <template>
@@ -20,6 +20,7 @@
         </template></van-field>
 
     </van-cell-group>
+    <p style="margin-left: 30px; "> <span @click="toLogin">切换登录</span> </p>
     <div style="margin: 16px;">
       <van-button round block type="primary" native-type="submit">
         注册
@@ -61,6 +62,12 @@ const onSubmit = async (values: any) => {
   }).finally(() => {
     resetCode()
   })
+}
+const toLogin=()=>{
+  router.push({
+    name:"Login"
+  })
+
 }
 //expects props options
 /*const props = defineProps({

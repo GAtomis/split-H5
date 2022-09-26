@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-16 11:29:52
- * @LastEditTime: 2022-09-24 14:49:45
+ * @LastEditTime: 2022-09-24 23:05:15
  * @LastEditors: Gavin
 -->
 <template>
@@ -24,7 +24,7 @@
       <van-field name="uploader" label="头像上传">
         <template #input>
           <div>
-            <van-uploader v-model="fileList" :capture="capture" :after-read="afterRead" :before-read="beforeRead"
+            <van-uploader v-model="fileList"  :after-read="afterRead" :before-read="beforeRead"
               multiple :max-count="count" />
             <p>附件限制：最多1个，单个不超过10M</p>
           </div>
@@ -44,27 +44,34 @@
 </template>
 
 <script lang='ts' setup>
-import { reactive, toRaw } from 'vue';
+import { reactive } from 'vue';
 import type { UserInfo } from '@/model/user/types'
-import { createUserInfo } from '@/api/user-api'
+import { updateUserInfo } from '@/api/user-api'
 import { useRouter } from 'vue-router'
 import useUploadAvatar from '@/hooks/useUploadAvatar';
-const { capture, fileList, beforeRead, afterRead, count, imageUrl } = useUploadAvatar()
+import { useUser } from '@/store/pinia';
+const {  fileList, beforeRead, afterRead, count, imageUrl } = useUploadAvatar()
 const router=useRouter()
+
+const useStore= useUser()
 const form = reactive<UserInfo>({
-  avatar: "",
-  name: "",
-  gender: 1
+  id:useStore.sys_user.id,
+  avatar: useStore.sys_user.avatar,
+  name: useStore.sys_user.name,
+  gender: useStore.sys_user.gender
 })
+fileList.value.push({url:useStore.sys_user.avatar})
 const onFailed = (values: any, errors: any) => {
   console.log(values, errors);
 
 }
-const onSubmit = async () => {
-  await createUserInfo(toRaw(form))
+const onSubmit = async () => {  
+  await updateUserInfo(form)
+  // await createUserInfo(toRaw(form))
   router.replace({
-    name: "Home"
+    name: "User"
   })
+  useStore.getUserInfo()
 }
 
 

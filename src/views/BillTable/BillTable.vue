@@ -2,7 +2,7 @@
  * @Description: 日常账单
  * @Author: Gavin
  * @Date: 2022-08-22 15:48:43
- * @LastEditTime: 2022-09-22 14:48:47
+ * @LastEditTime: 2022-09-25 12:13:11
  * @LastEditors: Gavin
 -->
 <template>
@@ -10,7 +10,7 @@
      <div class="home ">
 
           <van-skeleton title avatar :row="18" :loading="loading" :class="loading&&'bg-white'">
-               <UserCell ref="tableForm" v-model:form="form" />
+               <UserCell  style="margin-bottom:10px" v-model:form="form" />
                <nav>
                     <van-cell center>
                          <template #title>
@@ -43,18 +43,7 @@
                </nav>
                <main>
                     <van-tabs v-model:active="active" swipeable>
-                         <van-tab :title="'账单信息'" :name="'form'">
-                              <section>
-                                   <van-cell center>
-                                        <template #title>
-                                             <span class="title">账单信息</span>
-                                        </template>
 
-                                   </van-cell>
-                                   <TableForm v-model:form="form" style="width: 100%;height: 100%;" />
-
-                              </section>
-                         </van-tab>
                          <van-tab :title="'费用记录'" :name="'record'">
                               <section>
                                    <van-cell center>
@@ -68,16 +57,17 @@
                                              @click="handleEdit(item)" class="goods-card"
                                              :thumb="item.img||`https://img2.baidu.com/it/u=2840961417,55008201&fm=253&fmt=auto&app=138&f=JPG?w=500&h=500`">
                                              <template #tags>
-                                                  <p  style="line-height: 30px;"> <span class="record-card-tag">创建人： <van-tag type="primary">
+                                                  <p style="line-height: 30px;"> <span class="record-card-tag">创建人：
+                                                            <van-tag type="primary">
                                                                  {{item.creator?.name}}
-                                                            </van-tag></span> 
-                                                       
-                                                       
-                                                            <span class="record-card-tag">分摊方式： <van-tag type="success">
+                                                            </van-tag></span>
+
+
+                                                       <span class="record-card-tag">分摊方式： <van-tag type="success">
                                                                  {{useEnum().existingEnum.find(im=>im.value==item.existing)?.label??"未知"}}
                                                             </van-tag></span>
-                                                       </p>
-<!-- 
+                                                  </p>
+                                                  <!-- 
                                                   <p style="margin-bottom: 5px;">
 
 
@@ -107,6 +97,19 @@
                                    </van-cell>
                               </section>
                          </van-tab>
+                         <van-tab :title="'账单信息'" :name="'form'">
+                              <section>
+                                   <van-cell center>
+                                        <template #title>
+                                             <span class="title">账单信息</span>
+                                        </template>
+
+                                   </van-cell>
+                                   <TableForm v-model:form="form" style="width: 100%;height: 100%;" />
+
+                              </section>
+                         </van-tab>
+                   
                     </van-tabs>
                </main>
                <footer>
@@ -123,16 +126,19 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, onActivated, onDeactivated, ref, watchEffect, toRaw, onMounted } from 'vue';
+import { computed, ref, toRaw, onMounted } from 'vue';
 import type { BillRecord, BillTable } from "@/model/bill/types"
 import { useUser, useTempTable, useEnum, useRouteStore } from '@/store/pinia'
 import { useRecordDialog } from "./hooks/useRecordDialog"
+import {showSuccessToast} from 'vant'
 import RecordType from './components/RecordType.vue';
 import UserCell from './components/UserCell.vue'
 import { useRouter, useRoute } from "vue-router";
 import { getDetailById } from "@/api/bill-table-api"
+import {DeleteItem} from '@/api/bill-record-api'
 import TableForm from './components/TableForm.vue'
 import dayjs from 'dayjs';
+
 
 
 //新建记录弹窗
@@ -147,7 +153,7 @@ const currentUser = toRaw(useUser().sys_user)
 
 
 
-const active = ref("form")
+const active = ref("record")
 const defaultForm = () => ({
      id: '',
      area: '',
@@ -176,7 +182,8 @@ const handleCurrent = (type: number) => {
           path: '/bill/billRecord',
           query: {
                type,
-               mode: "new"
+               mode: "new",
+               tableId: form.value.id
           }
      })
      isShow.value = false
@@ -194,84 +201,34 @@ const handleEdit = (item: BillRecord) => {
      })
 
 }
-const deleteRecord = (item: any, index: number) => {
-     form.value.bilRecords.splice(index, 1)
+const deleteRecord = async (item:BillRecord, index: number) => {
+     
+    await DeleteItem({id:item.id as string})
+    showSuccessToast("删除成功")
+    getBillTable(route.query?.id as string)
 }
 const getBillTable = async (id: string) => {
-     const res = await getDetailById({ id })
+     const res = await getDetailById({ id  })
      Object.keys(form.value).forEach(item => {
           //@ts-ignore
           form.value[item] = res.result?.[item]
-
-
      })
 
-
-
-
-
-
 }
-watchEffect(() => {
-     form.value.userNum = form.value.sysUsers?.length ?? 0
-})
-watchEffect(() => {
-     form.value.total = totalAmount.value.toString() || ""
-})
 
 
 const loading = ref(false)
-
-//通过判断id,进行初始化,如果有Id就请求接口信息,没有读取缓存内信息
-onActivated(async () => {
-
-     console.log(route);
+onMounted(async () => {
      loading.value = true
-
-
-     if (routeStore.fromPage.name != "BillRecord") {
-          //直接进入初始化
-          form.value = defaultForm()
-
-     } else {
-          //BillRecord返回什么都不做
-
-          if (route.query?.active == 'record') {
-               //BillRecord页面提交成功时
-               const index = form.value.bilRecords.findIndex(item => item?.id == tempTable.bill_record?.id)
-
-               if (index == -1) {
-                    form.value.bilRecords.push(tempTable.bill_record)
-               } else {
-                    form.value.bilRecords.splice(index, 1, tempTable.bill_record)
-               }
-               route.query?.active && (active.value = route.query?.active as string ?? 'form')
-
-
-          }
-          loading.value = false
-          return
-     }
-     //主键查询详情
      if (route.query?.id) {
           const id = route.query?.id as string
           await getBillTable(id)
-
-
      }
+     //主键查询详情
      loading.value = false
-
-
-
-
-
-
-
-
 })
-onDeactivated(() => {
-     tempTable.updateTable(form.value)
-})
+
+//通过判断id,进行初始化,如果有Id就请求接口信息,没有读取缓存内信息
 
 
 //expects props options
@@ -324,7 +281,8 @@ main {
 
           .goods-card {
                margin: 0;
-               background-color: #fff;
+               // background-color: #fff;
+               background: var(--van-cell-background);
 
 
           }

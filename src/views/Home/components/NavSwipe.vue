@@ -2,12 +2,12 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-16 18:00:18
- * @LastEditTime: 2022-09-22 15:43:16
+ * @LastEditTime: 2022-09-24 11:27:03
  * @LastEditors: Gavin
 -->
 <template>
 <van-swipe class="my-swipe "  :autoplay="3000" indicator-color="white">
-  <van-swipe-item v-for="item,index in scrollImgs" :key="index"><img style="width:100% ;height:22vh;"  :src="item.src" /></van-swipe-item>
+  <van-swipe-item v-for="item,index in scrollImgs" :key="index"><img style="width:100% ;height:28vh;"  :src="item.src" /></van-swipe-item>
 
 </van-swipe>
 </template>
@@ -35,9 +35,9 @@ const scrollImgs=[{
   .my-swipe .van-swipe-item {
     color: #fff;
     font-size: 20px;
-    line-height: 150px;
+    line-height: 28vh;
     text-align: center;
-    background-color: #39a9ed;
+    // background-color: #39a9ed;
   }
 
 </style>

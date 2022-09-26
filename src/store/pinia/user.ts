@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-12-29 15:13:50
- * @LastEditTime: 2022-09-16 14:35:09
+ * @LastEditTime: 2022-09-23 22:39:13
  * @LastEditors: Gavin
  */
 import { defineStore } from 'pinia'
@@ -10,8 +10,9 @@ import { useLocalStorage } from "@vueuse/core"
 import type { Login, Register, UserInfo } from "@/model/user/types"
 import type { UserState } from '../types'
 import type { Result } from "@/model/common/types"
-
+import router from '@/router'
 import { login, register, getUserInfo } from "@/api/user-api"
+
 export default defineStore("user", {
 
   state: (): UserState => ({
@@ -88,6 +89,14 @@ export default defineStore("user", {
       }
 
 
+    },
+    logout(){
+      this.token=''
+      sessionStorage.clear()
+      localStorage.clear()
+      router.push({ name: 'Login', replace: true })
+      window.location.reload()
     }
   },
+ 
 })

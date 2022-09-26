@@ -19,6 +19,7 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
       title: 'Guide',
       icon: 'Guide',
       roles: '/guide',
+     
     }
 
   }

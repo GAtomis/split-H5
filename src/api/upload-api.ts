@@ -36,9 +36,7 @@ export function upload(formData:FormData) {
     url:'upload',  
     method:'POST',
     transformRequest:()=>formData,
-    headers:{"Content-Type":"multipart/form-data", "Authorization": "DelSoXWWjXFCJ6Z7G1lhWxvAO1xYlb7h"},
-  
-    
+    headers:{"Content-Type":"multipart/form-data", "Authorization": "DelSoXWWjXFCJ6Z7G1lhWxvAO1xYlb7h"}, 
   })
   
 }

@@ -2,12 +2,12 @@
  * @Description: navbar
  * @Author: Gavin
  * @Date: 2022-08-16 16:35:53
- * @LastEditTime: 2022-08-16 17:01:27
+ * @LastEditTime: 2022-09-25 12:11:23
  * @LastEditors: Gavin
 -->
 <template>
   <div class="navbar">
-    <van-nav-bar :title="pageTitle" left-text="返回" right-text="按钮" left-arrow @click-left="onClickLeft"
+    <van-nav-bar :title="pageTitle" left-text="返回"  left-arrow @click-left="onClickLeft"
       @click-right="onClickRight" />
   </div>
 </template>

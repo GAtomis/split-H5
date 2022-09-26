@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-14 18:09:46
- * @LastEditTime: 2022-08-22 15:21:46
+ * @LastEditTime: 2022-09-24 23:32:18
  * @LastEditors: Gavin
 -->
 <template>
@@ -25,15 +25,20 @@
     />
       <van-field v-model="code" name="验证码" label="验证码" placeholder="验证码"
         :rules="[{ required: true, message: '请输入验证码' }]"> <template #button>
-          <img :src="codeUrl" @click="resetCode" alt="">
+
+          <div class="codeUrl">  <img :src="codeUrl" @click="resetCode" alt=""/></div>
+        
         </template></van-field>
    
   </van-cell-group>
+
+  <p style="margin-left: 30px; "> <span @click="toRegister">立即注册</span> </p>
   <div style="margin: 16px;">
     <van-button round block type="primary" native-type="submit">
       登录
     </van-button>
   </div>
+
 </van-form>
 
 
@@ -65,6 +70,12 @@ const onSubmit=async()=>{
 
 
 }
+const toRegister=()=>{
+  $router.push({
+      name:"Register",
+    })
+
+}
 //expects props options
 /*const props = defineProps({
 foo: String
@@ -74,5 +85,10 @@ foo: String
 </script>
 
 <style scoped lang='scss'>
+  .codeUrl{
+    img{
+      background: var(    --van-field-clear-icon-color);
+    }
+  }
 
 </style>

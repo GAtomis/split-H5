@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-02 15:21:07
- * @LastEditTime: 2022-09-19 18:05:58
+ * @LastEditTime: 2022-09-25 10:16:16
  * @LastEditors: Gavin
  */
 
@@ -37,12 +37,17 @@ export function createUserInfo(data:UserInfo) {
     data
   })
 }
-export function getUserList() {
-  return http.request<any,Result<UserInfo[]>>({
-    url:"user/list",
+export function updateUserInfo(data:UserInfo) {
+  return http.request<any,Result<string>>({
+    url:"user/userInfo",
+    method:"PUT",
+    data
   })
 }
 
+
+
+//姓名检索
  export function getInfoListByName (data:{searchKey:string}) {
   return http.request<any,Result<UserInfo[]>>({
     url:"user/getInfoListByName",
@@ -50,4 +55,5 @@ export function getUserList() {
     data
   })
 }
+
 

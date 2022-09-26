@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-16 11:12:49
- * @LastEditTime: 2022-09-24 11:42:00
+ * @LastEditTime: 2022-09-24 11:40:52
  * @LastEditors: Gavin
 -->
 <template>
@@ -26,6 +26,7 @@ foo: String
 
 <style scoped lang='scss'>
 .guide {
+
   margin: 15px 0px;
   &-nav{
     margin-bottom: 15px;

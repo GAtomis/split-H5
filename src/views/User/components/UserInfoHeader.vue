@@ -5,7 +5,7 @@
   width="80px"
   height="80px"
   class="user-avatar"
-  src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+  :src="info?.avatar??`https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg`"
 />
   <p class="user-name">{{info.name}}</p>
  </div>
@@ -28,13 +28,14 @@ const rigth=computed(()=>((props.info.name?.length??0)*10+76).toString()+'px')
   .cover-background{
     position: relative;
     width: 100%;
-    height: 22vh;
+    height: 27vh;
     background:url(https://s2.loli.net/2022/09/22/En26oxzayCF9Beg.webp);
     background-size: cover;
     .user-avatar{
       position: absolute;
       bottom: -25px;
       right:5px;
+      z-index: 99999;
     }
     .user-name{
       position: absolute;

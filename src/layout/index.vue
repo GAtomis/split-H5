@@ -2,15 +2,15 @@
  * @Description: 框架
  * @Author: Gavin
  * @Date: 2022-08-14 15:03:42
- * @LastEditTime: 2022-09-22 18:57:14
+ * @LastEditTime: 2022-09-24 23:08:48
  * @LastEditors: Gavin
 -->
 
 <template>
 
   <section>
-    <NavBar />
-    <main>
+    <NavBar v-if="route.meta.type=='link'"/>
+    <main >
 
       <router-view v-slot="{ Component, route }">
       <transition :name="route.meta.transition as string || 'fade'" mode="out-in">
@@ -35,13 +35,16 @@ import {filterChildren} from "@/hooks/useRouteFilter"
 import {publicRouteTable} from "@/router"
 import {computed} from "vue"
 import { useRoute } from "vue-router"
-import { finished } from "stream"
+
 const route=useRoute()
 
  const cache= computed(()=>{
       return filterChildren(publicRouteTable,route=>!!route.meta?.cache).map(item=>item.name as string)
 
 })
+
+const bottom = computed(()=>route.meta.type=='menu'?'50px':'0px')
+const top = computed(()=>route.meta.type=='link'?'48px':'0px')
 
 
 //expects props options
@@ -55,12 +58,12 @@ foo: String
 <style scoped lang='scss'>
 main {
   position: absolute;
-  top: 48px;
-  bottom: 52px;
+  top: v-bind(top);
+  bottom: v-bind(bottom);
   left: 0;
   overflow: hidden;
   overflow-y: scroll;
-  background-color: #eee;
+  background-color: var(    --van-border-color);
 }
 
 .fade-enter-active,.fade-leave-active {

@@ -1,3 +1,52 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3667106 */
+  src: url('//at.alicdn.com/t/c/font_3667106_ryyd0kp1en.woff2?t=1663926331687') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3667106_ryyd0kp1en.woff?t=1663926331687') format('woff'),
+       url('//at.alicdn.com/t/c/font_3667106_ryyd0kp1en.ttf?t=1663926331687') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-banben:before {
+  content: "\e60a";
+}
+
+.icon-dark:before {
+  content: "\e72f";
+}
+
+.icon-editor:before {
+  content: "\e74d";
+}
+
+.icon-help:before {
+  content: "\e752";
+}
+
+.icon-usercenter:before {
+  content: "\e773";
+}
+
+.icon-operation:before {
+  content: "\e75b";
+}
+
+.icon-github-fill:before {
+  content: "\e885";
+}
+
+.icon-kehupandian:before {
+  content: "\e7c3";
+}
+
+
+
 
 
 .layout-content{
@@ -9,9 +58,13 @@
 .wrap-content{
   margin: 10px;
   // border: 1px solid #000;
-  background-color: #fff;
+  background-color: var(    --van-cell-group-background);
 
 }
 .magb-10{
   margin-bottom: 10px;
+}
+
+.magr-5{
+  margin-right: 5px;
 }

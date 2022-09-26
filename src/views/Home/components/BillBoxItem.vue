@@ -2,36 +2,40 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-16 18:22:58
- * @LastEditTime: 2022-09-22 15:10:41
+ * @LastEditTime: 2022-09-24 22:54:15
  * @LastEditors: Gavin
 -->
 <template>
   <div class="warp">
 
-  
+
 
     <section>
 
-      <van-cell-group >
-        <van-cell size="large"  :title="item.name"   >
-        
+      <van-cell-group>
+        <van-cell :title="item.name">
+
           <template #value>
-           <span>创建人：<van-tag type="success" size="medium">{{creator?.name}}</van-tag></span> 
+            <span>创建人：<van-tag type="success" size="medium">{{creator?.name}}</van-tag></span>
 
           </template>
-        
+
         </van-cell>
-        <p class="user-warp"> <span>参与人:</span> <van-tag  v-for="user in item.sysUsers" :key="user.id" type="primary" size="medium">{{user.name}}</van-tag></p>
+        <p class="user-warp"> <span>参与人:</span>
+          <van-tag v-for="user in item.sysUsers" :key="user.id" type="primary" size="medium">{{user.name}}</van-tag>
+        </p>
 
-        <van-cell   icon="location-o" :title="item.area" :label="item.describe">
+        <van-cell icon="location-o" :title="item.area" :label="item.describe">
           <template #value>
 
-            <span>CNY    </span>
-            <span style=" margin-left:2px;font-weight:500; font-size:18px; color: black;">   {{item.total}}</span>
-          
+            <span>CNY </span>
+            <span style=" margin-left:2px;color: var(--van-card-price-color);
+    font-weight: var(--van-font-bold);
+    font-size:17px;"> {{item.bilRecords.map(r=>+r.price).reduce((total, val) => total + val)}}</span>
+
           </template>
-        
-        
+
+
         </van-cell>
 
         <p class="timezone"><span>有效期：{{createTime}}</span> </p>
@@ -61,7 +65,7 @@ const props = defineProps<{
 
 const createTime = computed(() => dayjs(props.item.createdAt).format("YYYY-MM-DD"))
 const creator = computed(() => props.item.creator)
-const total =computed(() => props.item.creator)
+const total = computed(() => props.item.creator)
 //expects emits options
 //const emit = defineEmits(['update', 'delete'])
 </script>
@@ -69,11 +73,8 @@ const total =computed(() => props.item.creator)
 <style scoped lang='scss'>
 .warp {
 
-  // position: relative;
-  margin: 0 10px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-  
+
+
 
   .tag {
     position: absolute;
@@ -82,20 +83,24 @@ const total =computed(() => props.item.creator)
     // margin: 5px;
 
   }
-  .user-warp{
+
+  .user-warp {
     margin-left: 15px;
-    span{
+
+    span {
       margin-right: 5px;
     }
   }
-  .timezone{
-   padding: 5px 10px ;
+
+  .timezone {
+    padding: 5px 10px;
     text-align: right;
 
-    color:var(--van-text-color-2) ;
+    color: var(--van-text-color-2);
   }
+
   // section {
- 
+
 
   // }
 

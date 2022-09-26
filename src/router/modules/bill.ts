@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-09-08 12:07:06
- * @LastEditTime: 2022-09-22 17:31:25
+ * @LastEditTime: 2022-09-24 17:21:58
  * @LastEditors: Gavin
  */
  
@@ -30,7 +30,19 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
           title: '账单信息',
           icon: 'wap-home-o',
           roles: '/bill/billTable',
-          cache:true,
+          cache:false,
+          type:'link'
+        },
+      }, 
+      {
+        path: 'billForm',
+        name: 'BillForm',
+        component: () => import('@/views/BillForm/BillForm.vue'),
+        meta: {
+          title: 'table编辑',
+          icon: 'wap-home-o',
+          roles: '/bill/BillForm',
+          cache:false,
           type:'link'
         },
       }, 
