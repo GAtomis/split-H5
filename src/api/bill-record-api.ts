@@ -2,14 +2,15 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 16:53:20
- * @LastEditTime: 2022-09-24 22:16:43
+ * @LastEditTime: 2022-10-03 14:15:34
  * @LastEditors: Gavin
  */
 
 
 import http from "@/utils/request-api"
 import type {BillRecord} from '@/model/bill/types'
-import type {Result,PrimaryKey} from "@/model/common/types"
+import type {Result,PrimaryKey,PageInfo,PageStruct} from "@/model/common/types"
+
 
 
 
@@ -33,5 +34,15 @@ export function DeleteItem(data:PrimaryKey) {
     url:"bill/record",
     method:'DELETE',
     data, 
+  })
+}
+export function getList(data:{tableId:string
+  creatorId:string
+},params:PageInfo) {
+  return http.request<any,Result<PageStruct<BillRecord[]>>>({
+    url:"bill/record/list",
+    method:'POST',
+    data, 
+    params
   })
 }

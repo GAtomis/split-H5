@@ -2,7 +2,7 @@
  * @Description: axios
  * @Author: Gavin
  * @Date: 2022-08-02 15:04:30
- * @LastEditTime: 2022-09-15 18:15:56
+ * @LastEditTime: 2022-10-03 14:13:27
  * @LastEditors: Gavin
  */
 import axios, { AxiosResponse, AxiosInstance ,AxiosRequestHeaders} from "axios"
@@ -20,6 +20,7 @@ instance.interceptors.request.use((config) => {
   if(baseUrlwhiteList.some(item=>config.baseURL?.includes(item))) return config
  const token= useUser().sys_token
   config.headers!.Authorization=token
+
 
   console.log("请求");
   return config

@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-16 18:22:58
- * @LastEditTime: 2022-09-24 22:54:15
+ * @LastEditTime: 2022-10-03 12:22:59
  * @LastEditors: Gavin
 -->
 <template>
@@ -31,7 +31,7 @@
             <span>CNY </span>
             <span style=" margin-left:2px;color: var(--van-card-price-color);
     font-weight: var(--van-font-bold);
-    font-size:17px;"> {{item.bilRecords.map(r=>+r.price).reduce((total, val) => total + val)}}</span>
+    font-size:17px;"> {{item.bilRecords.length&&item.bilRecords.map(r=>+r.price).reduce((total, val) => total + val)}}</span>
 
           </template>
 
