@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-14 16:19:54
- * @LastEditTime: 2022-10-03 16:49:48
+ * @LastEditTime: 2022-10-15 18:40:25
  * @LastEditors: Gavin
  */
 import { ExpandRouteRecordRaw } from '@/model/router'
@@ -14,7 +14,7 @@ const mixinRouter: Array<ExpandRouteRecordRaw> = [
     path: '/',
     component: () => import("@/views/Login/index.vue"),
     name: 'Front',
-    redirect: "/login",
+    redirect: "/layout/home",
     meta: {
       title: 'Front',
       icon: 'icon-CodeSandbox',

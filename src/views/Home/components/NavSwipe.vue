@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-16 18:00:18
- * @LastEditTime: 2022-09-24 11:27:03
+ * @LastEditTime: 2022-10-17 14:50:59
  * @LastEditors: Gavin
 -->
 <template>
@@ -18,10 +18,12 @@ const props = defineProps({
 foo: String
 })
 
-const scrollImgs=[{
-  src:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp04%2F1Z92H1532L632-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666424571&t=0725c030ff1476ae3692477e3d2d6113"
-},{
+const scrollImgs=[
+  
+{
   src:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.2008php.com%2F2019_Website_appreciate%2F2019-10-29%2F20191029213639.jpg&refer=http%3A%2F%2Fwww.2008php.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666423917&t=696100042758ad3ae3239d38873588ca"
+},{
+  src:"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpicnew12.photophoto.cn%2F20180910%2Fshangwurenshikaihui-30257028_1.jpg&refer=http%3A%2F%2Fpicnew12.photophoto.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1668581381&t=bd08a806365ec625825b7a7a129a24c2"
 },{
 
 

@@ -2,7 +2,7 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-09-08 12:07:06
- * @LastEditTime: 2022-09-24 10:20:29
+ * @LastEditTime: 2022-10-15 18:53:06
  * @LastEditors: Gavin
  */
  
@@ -11,6 +11,8 @@ const Layout = () => import('@/layout/index.vue')
 import { ExpandRouteRecordRaw } from '@/model/router'
 
 const mixinRouter: Array<ExpandRouteRecordRaw> = [
+
+  
   {
     path: '/layout',
     component: Layout,

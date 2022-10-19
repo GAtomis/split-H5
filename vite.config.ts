@@ -2,7 +2,7 @@
  * @Description: vite配置
  * @Author: Gavin
  * @Date: 2022-08-02 12:02:32
- * @LastEditTime: 2022-09-09 15:46:08
+ * @LastEditTime: 2022-10-18 14:38:36
  * @LastEditors: Gavin
  */
 import { defineConfig, loadEnv } from 'vite'
