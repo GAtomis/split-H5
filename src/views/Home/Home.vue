@@ -2,8 +2,8 @@
  * @Description: Home
  * @Author: Gavin
  * @Date: 2022-08-14 15:50:33
- * @LastEditTime: 2022-09-26 15:47:16
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-19 19:34:11
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
 
@@ -79,12 +79,12 @@ const isEmpty=computed(()=>tableList.value.length)
 const loading = ref(false)
 const getTables = async () => {
   loading.value = true
-  const { result } = await getTableListByUser({
+  const { data:{list} } = await getTableListByUser({
     page:1,
     pageSize:10
   })
 
-  result.item
+
   tableList.value = result.item
   loading.value = false
 
