@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2021-12-29 15:13:50
- * @LastEditTime: 2022-09-23 22:39:13
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-14 10:26:36
+ * @LastEditors: GAtomis 850680822@qq.com
  */
 import { defineStore } from 'pinia'
 import { useLocalStorage } from "@vueuse/core"
@@ -18,10 +18,13 @@ export default defineStore("user", {
   state: (): UserState => ({
     token: useLocalStorage('token', ""),
     user: {
-      avatar: "",
-      id: '',
-      name: "",
-      gender: 1
+      ID: 0,
+      phone: '',
+      email: '',
+      headerImg: '',
+      uuid: '',
+      userName: '',
+      nickName: ''
     }
   }),
   getters: {
@@ -31,7 +34,7 @@ export default defineStore("user", {
   actions: {
     async login(param: Login) {
       try {
-        const { result } = await login(param)
+        const { data: result} = await login(param)
         this.token = result.token
         return result.token
 
@@ -42,7 +45,7 @@ export default defineStore("user", {
     },
     async register(param: Register) {
       try {
-        const { result } = await register(param)
+        const { data: result } = await register(param)
         this.token = result
         return result
 
@@ -72,7 +75,7 @@ export default defineStore("user", {
       // })
 
       try {
-        const { result } = await getUserInfo()
+        const { data: result } = await getUserInfo()
           //便利赋值需要的属性
           Object.keys(this.user).forEach(item=>{
               this.user[item]=result[item]

@@ -2,8 +2,8 @@
  * @Description: vite配置
  * @Author: Gavin
  * @Date: 2022-08-02 12:02:32
- * @LastEditTime: 2022-10-18 14:38:36
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-13 19:40:43
+ * @LastEditors: GAtomis 850680822@qq.com
  */
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -64,13 +64,15 @@ export default defineConfig(({ command, mode }) => {
     server: {
 
       open: true,
-
+      port:env.VITE_CLI_PORT,
       proxy: {
 
-  
-        [env.VITE_BASE_API]: {
-          target: env.VITE_BASE_PROXY,
+        // 把key的路径代理到target位置
+        // detail: https://cli.vuejs.org/config/#devserver-proxy
+        [env.VITE_BASE_API]: { // 需要代理的路径   例如 '/api'
+          target: `${env.VITE_BASE_PROXY}:${env.VITE_SERVER_PORT}`, // 代理到 目标路径
           changeOrigin: true,
+          rewrite: path => path.replace(new RegExp('^' + env.VITE_BASE_API), ''),
         },
         '/upload':{
           target: 'https://smms.app/api/v2',

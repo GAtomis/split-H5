@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-23 01:06:13
- * @LastEditTime: 2022-09-24 22:16:58
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-17 09:21:34
+ * @LastEditors: GAtomis 850680822@qq.com
  */
 //枚举
 
@@ -22,11 +22,9 @@ export default function useRecordDialog() {
   const router = useRouter()
   const route = useRoute()
   const useStore=useUser()
-  const tempStore=useTempTable()
   const form = reactive<BillRecord>({
-    id:'',
-    creatorId: useStore.sys_user?.id as string,
-    price: "",
+    creatorId: '',
+    price: 0,
     endTime:  dayjs().valueOf(),
     existing: 1,
     type: +(route.query?.type ?? 1),
@@ -34,31 +32,25 @@ export default function useRecordDialog() {
     img: '',
     describe: '',
     area: '',
-    creator:useStore.sys_user
+    creator:undefined
   })
   const onSubmit = async () => {
+    form.price=+form.price
 
-    if(form.id){
-      const {result}= await updateItem(form)
+    if(form.ID){
+      const {data }= await updateItem(form)
 
     }else{
-         const {result}= await createItem(form)
+         const {data}= await createItem(form)
 
-         
-
+        
     }
     showToast("提交成功")
     
     router.go(-1)
   };
   onMounted(() => {
-    if (route.query?.mode=="edit") {
-      for (let key in toRaw(form)) {
-        //@ts-ignore
-        form[key] = tempStore.billRecord[key]
-      }
-      
-    }
+
 
   })
 

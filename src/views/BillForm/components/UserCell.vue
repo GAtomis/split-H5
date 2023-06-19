@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-21 10:50:27
- * @LastEditTime: 2022-09-24 21:14:21
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-14 11:00:59
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
   <header>
@@ -13,7 +13,7 @@
         <template #title>
           <div class="left-row">
             <van-icon name="user-circle-o" class="user-icon" size="8vw" />
-            <span class="name">{{ item.name }}</span>
+            <span class="name">{{ item.nickName }}</span>
           </div>
         </template>
       </van-cell>

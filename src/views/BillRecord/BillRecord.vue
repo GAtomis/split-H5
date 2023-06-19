@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 11:57:05
- * @LastEditTime: 2022-09-24 14:49:30
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-16 23:35:44
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
   <div class=" billRecord   ">
@@ -27,7 +27,7 @@
 
       <van-form @submit="onSubmit">
 
-        <van-field class="magb-10" label="创建人" :model-value="form.creator?.name" readonly />
+        <van-field class="magb-10" label="创建人" :model-value="form.creator?.name??userStore.sys_user.nickName" readonly />
 
         <van-field v-model="time" class="magb-10" is-link readonly name="datePicker" label="发生时间"
           placeholder="点击选择时间" @click="showPicker = true" />
@@ -98,6 +98,7 @@ import {useTempTable} from '@/store/pinia'
 // import type { BillRecord } from '@/model/bill/types'
 
 const route = useRoute()
+const userStore=useUser()
 const { form, onSubmit } = useRecordForm()
 const currentRecordType = computed(() => {
   const recordTypeEnum = useEnum().recordTypeEnum

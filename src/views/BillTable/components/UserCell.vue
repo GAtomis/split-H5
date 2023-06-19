@@ -2,18 +2,16 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-21 10:50:27
- * @LastEditTime: 2022-09-24 21:23:22
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-14 10:59:28
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
   <header>
-
-
-      <van-cell center is-link v-for="item,index in form?.sysUsers" :key="index">
+      <van-cell center is-link v-for="item,index in form.sysUsers" :key="index">
         <template #title>
           <div class="left-row">
             <van-icon name="user-circle-o" class="user-icon" size="8vw" />
-            <span class="name">{{ item.name }}</span>
+            <span class="name">{{ item.nickName }}1123</span>
           </div>
         </template>
       </van-cell>

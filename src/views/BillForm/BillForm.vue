@@ -2,17 +2,13 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-24 14:49:03
- * @LastEditTime: 2022-09-24 21:05:54
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-14 11:00:37
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
 
   <div>
-
- 
     <UserCell v-model:form="form" ></UserCell>
-
-
     <section>
       <van-cell center>
         <template #title>

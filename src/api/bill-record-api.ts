@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 16:53:20
- * @LastEditTime: 2022-10-03 14:15:34
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-16 23:15:34
+ * @LastEditors: GAtomis 850680822@qq.com
  */
 
 
@@ -17,7 +17,7 @@ import type {Result,PrimaryKey,PageInfo,PageStruct} from "@/model/common/types"
 
 export function createItem(data:BillRecord) {
   return http.request<any,Result<string>>({
-    url:"bill/record",
+    url:"bilRecord/createSysBilRecord",
     method:'POST',
     data, 
   })

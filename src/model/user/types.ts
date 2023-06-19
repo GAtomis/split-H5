@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-17 00:06:03
- * @LastEditTime: 2022-09-16 13:51:01
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-14 10:24:32
+ * @LastEditors: GAtomis 850680822@qq.com
  */
 
 
@@ -29,9 +29,12 @@ export type Register={
 }
 
 export type UserInfo = {
-  avatar: string
-  id?: number|string
-  name: string
-  gender: number
+  ID: number
+  phone: string
+  email: string
+  headerImg: string
+  uuid: string
+  userName: string
+  nickName: string
   [key: string]: any
 }

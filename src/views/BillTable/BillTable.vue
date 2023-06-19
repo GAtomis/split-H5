@@ -2,18 +2,12 @@
  * @Description: 日常账单
  * @Author: Gavin
  * @Date: 2022-08-22 15:48:43
- * @LastEditTime: 2022-10-03 17:09:57
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-16 23:10:25
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
   <div class="home">
-    <van-skeleton
-      title
-      avatar
-      :row="18"
-      :loading="loading"
-      :class="loading && 'bg-white'"
-    >
+    <van-skeleton title avatar :row="18" :loading="loading" :class="loading && 'bg-white'">
       <UserCell style="margin-bottom: 10px" v-model:form="form" />
       <nav>
         <van-cell center>
@@ -42,7 +36,7 @@
         </van-cell>
       </nav>
       <main>
-        <van-tabs v-model:active="active" >
+        <van-tabs v-model:active="active">
           <van-tab :title="'费用记录'" :name="'record'">
             <section>
               <van-cell center>
@@ -51,39 +45,25 @@
                 </template>
               </van-cell>
               <van-swipe-cell v-for="(item, index) in bilRecords" :key="index">
-                <van-card
-                  num="1"
-                  :price="item.price"
-                  :desc="item.describe"
-                  :title="`类型:${
-                    useEnum().getRecordTypeItem(item.type)?.title
-                  }`"
-                  @click="handleEdit(item)"
-                  class="goods-card"
-                  :thumb="
-                    item.img ||
-                    `https://img2.baidu.com/it/u=2840961417,55008201&fm=253&fmt=auto&app=138&f=JPG?w=500&h=500`
-                  "
-                >
+                <van-card num="1" :price="item.price" :desc="item.describe" :title="`类型:${useEnum().getRecordTypeItem(item.type)?.title
+                  }`" @click="handleEdit(item)" class="goods-card" :thumb="item.img ||
+    `https://img2.baidu.com/it/u=2840961417,55008201&fm=253&fmt=auto&app=138&f=JPG?w=500&h=500`
+    ">
                   <template #tags>
                     <p style="line-height: 30px">
-                      <span class="record-card-tag"
-                        >创建人：
+                      <span class="record-card-tag">创建人：
                         <van-tag type="primary">
                           {{ item.creator?.name }}
-                        </van-tag></span
-                      >
+                        </van-tag></span>
 
-                      <span class="record-card-tag"
-                        >分摊方式：
+                      <span class="record-card-tag">分摊方式：
                         <van-tag type="success">
                           {{
                             useEnum().existingEnum.find(
                               (im) => im.value == item.existing
                             )?.label ?? '未知'
                           }}
-                        </van-tag></span
-                      >
+                        </van-tag></span>
                     </p>
                     <!-- 
                                                   <p style="margin-bottom: 5px;">
@@ -96,24 +76,12 @@
                   </template>
                 </van-card>
                 <template #right>
-                  <van-button
-                    square
-                    text="删除"
-                    @click="deleteRecord(item, index)"
-                    type="danger"
-                    class="delete-button"
-                  />
+                  <van-button square text="删除" @click="deleteRecord(item, index)" type="danger" class="delete-button" />
                 </template>
               </van-swipe-cell>
               <van-cell center>
                 <template #title>
-                  <van-button
-                    icon="plus"
-                    @click="addBillRecord"
-                    plain
-                    block
-                    type="primary"
-                  >
+                  <van-button icon="plus" @click="addBillRecord" plain block type="primary">
                     添加账单记录
                   </van-button>
                 </template>
@@ -127,10 +95,7 @@
                   <span class="title">账单信息</span>
                 </template>
               </van-cell>
-              <TableForm
-                v-model:form="form"
-                style="width: 100%; height: 100%"
-              />
+              <TableForm v-model:form="form" style="width: 100%; height: 100%" />
             </section>
           </van-tab>
 
@@ -141,54 +106,31 @@
                   <span class="title">我的费用</span>
                 </template>
               </van-cell>
-              <van-swipe-cell
-                v-for="(item, index) in myRecordList"
-                :key="index"
-              >
-                <van-card
-                  num="1"
-                  :price="item.price"
-                  :desc="item.describe"
-                  :title="`类型:${
-                    useEnum().getRecordTypeItem(item.type)?.title
-                  }`"
-                  @click="handleEdit(item)"
-                  class="goods-card"
-                  :thumb="
-                    item.img ||
-                    `https://img2.baidu.com/it/u=2840961417,55008201&fm=253&fmt=auto&app=138&f=JPG?w=500&h=500`
-                  "
-                >
+              <van-swipe-cell v-for="(item, index) in myRecordList" :key="index">
+                <van-card num="1" :price="item.price" :desc="item.describe" :title="`类型:${useEnum().getRecordTypeItem(item.type)?.title
+                  }`" @click="handleEdit(item)" class="goods-card" :thumb="item.img ||
+    `https://img2.baidu.com/it/u=2840961417,55008201&fm=253&fmt=auto&app=138&f=JPG?w=500&h=500`
+    ">
                   <template #tags>
                     <p style="line-height: 30px">
-                      <span class="record-card-tag"
-                        >创建人：
+                      <span class="record-card-tag">创建人：
                         <van-tag type="primary">
                           {{ item.creator?.name }}
-                        </van-tag></span
-                      >
+                        </van-tag></span>
 
-                      <span class="record-card-tag"
-                        >分摊方式：
+                      <span class="record-card-tag">分摊方式：
                         <van-tag type="success">
                           {{
                             useEnum().existingEnum.find(
                               (im) => im.value == item.existing
                             )?.label ?? '未知'
                           }}
-                        </van-tag></span
-                      >
+                        </van-tag></span>
                     </p>
                   </template>
                 </van-card>
                 <template #right>
-                  <van-button
-                    square
-                    text="删除"
-                    @click="deleteRecord(item, index)"
-                    type="danger"
-                    class="delete-button"
-                  />
+                  <van-button square text="删除" @click="deleteRecord(item, index)" type="danger" class="delete-button" />
                 </template>
               </van-swipe-cell>
             </section>
@@ -234,7 +176,7 @@ const currentUser = toRaw(useUser().sys_user)
 
 const active = ref('record')
 const defaultForm = () => ({
-  id: '',
+  ID: '',
   area: '',
   name: '',
   creatorId: currentUser.id as string,
@@ -244,7 +186,7 @@ const defaultForm = () => ({
   total: '',
   state: 1,
   bilRecords: [],
-  userNum: 0,
+  userNum: 1,
   sysUsers: [currentUser],
 })
 
@@ -252,11 +194,11 @@ const form = ref<BillTable>({
   ...defaultForm(),
 })
 const totalAmount = computed(() => {
-  const priceList = currentRecords.value?.map((item) => +item.price)??[]
+  const priceList = currentRecords.value?.map((item) => +item.price) ?? []
   return priceList.length ? priceList.reduce((total, val) => total + val).toFixed(2) : 0
 })
-const currentRecords =computed(()=>{
- return  active.value=='mine'?myRecordList.value:bilRecords.value
+const currentRecords = computed(() => {
+  return active.value == 'mine' ? myRecordList.value : bilRecords.value
 })
 
 const bilRecords = computed(() => form.value.bilRecords)
@@ -266,7 +208,7 @@ const handleCurrent = (type: number) => {
     query: {
       type,
       mode: 'new',
-      tableId: form.value.id,
+      tableId: form.value.ID,
     },
   })
   isShow.value = false
@@ -294,10 +236,11 @@ const deleteRecord = async (item: BillRecord, index: number) => {
   getBillTable(route.query?.id as string)
 }
 const getBillTable = async (id: string) => {
-  const res = await getDetailById({ id })
+  const res = await getDetailById({ ID: id })
+  myRecordList.value = res.data.bilRecords
   Object.keys(form.value).forEach((item) => {
     //@ts-ignore
-    form.value[item] = res.result?.[item]
+    form.value[item] = res.data?.[item]
   })
 }
 
@@ -316,7 +259,7 @@ onMounted(async () => {
   if (route.query?.id) {
     const id = route.query?.id as string
     await getBillTable(id)
-    await getRecordListByUser(id)
+    // await getRecordListByUser(id)
   }
   //主键查询详情
   loading.value = false

@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-13 15:24:08
- * @LastEditTime: 2022-09-24 16:23:01
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-15 22:29:18
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
   <van-form @submit="onSubmit">
@@ -17,7 +17,7 @@
     <van-field v-model="form.area" is-link readonly name="area" label="地区选择" placeholder="点击选择省市区"
       @click="showArea = true" :rules="[{ required: true, message: '请填写用户名' }]" />
 
-    <van-field label="创建者" :model-value="form.creator?.name" readonly />
+    <van-field label="创建者" :model-value="form.creator?.nickName" readonly />
     <van-field v-model="form.describe" rows="2" autosize label="描述" type="textarea" maxlength="50" placeholder="请输入留言"
       show-word-limit />
 
@@ -58,7 +58,7 @@ const router=useRouter()
 
 function paramsFormat(params: BillTableInfo): BillTableInfo {
 
-  delete params.id
+  delete params.ID
   delete params.creator
   return params
 }
@@ -93,7 +93,7 @@ watchEffect(() => {
 const submitting = ref(false)
 const onSubmit = async () => {
   submitting.value = true
-   const {result}= await createItem(paramsFormat(props.form))
+   const {data}= await createItem(paramsFormat(props.form))
 
   showSuccessToast('创建成功');
   submitting.value = false
@@ -102,7 +102,7 @@ const onSubmit = async () => {
     router.replace({
       name:'BillTable',
       query:{
-        id:result
+        id:data
       }
     })
   }, 1000);

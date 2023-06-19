@@ -2,8 +2,8 @@
  * @Description: axios
  * @Author: Gavin
  * @Date: 2022-08-02 15:04:30
- * @LastEditTime: 2022-10-03 14:13:27
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-13 20:52:23
+ * @LastEditors: GAtomis 850680822@qq.com
  */
 import axios, { AxiosResponse, AxiosInstance ,AxiosRequestHeaders} from "axios"
 import { showFailToast } from 'vant';
@@ -20,6 +20,8 @@ instance.interceptors.request.use((config) => {
   if(baseUrlwhiteList.some(item=>config.baseURL?.includes(item))) return config
  const token= useUser().sys_token
   config.headers!.Authorization=token
+  config.headers['x-token']= token
+  
 
 
   console.log("请求");

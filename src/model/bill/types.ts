@@ -2,17 +2,16 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-09-06 16:26:25
- * @LastEditTime: 2022-09-24 17:54:43
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-14 12:08:36
+ * @LastEditors: GAtomis 850680822@qq.com
  */
 
 
 
 
 import type { UserInfo} from "@/model/user/types"
-
+import type {PrimaryKey} from '@/model/common/types'
 export type BillTableInfo={
-    id?      : number|string
     name      : string     
 	describe  : string      
 	endTime   :number
@@ -24,10 +23,9 @@ export type BillTableInfo={
     creator?:UserInfo
     createdAt?:string
     updatedAt?:string   
-}
+}&PrimaryKey
 
 export type BillTable={
-    id?      : number|string
 	name      : string     
 	describe  : string      
 	endTime   :number
@@ -41,10 +39,10 @@ export type BillTable={
 	sysUsers   :UserInfo[] 
     createdAt?:string
     updatedAt?:string
-}
+}&PrimaryKey
 
 export type BillRecord={
-    id?:number|string
+    ID?:number|string
     price:string|number
     endTime:number
     creatorId:string
@@ -58,4 +56,4 @@ export type BillRecord={
     createdAt?:string
     updatedAt?:string
     [key: string]: any  
-}
+}&PrimaryKey

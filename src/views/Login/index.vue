@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-14 16:23:36
- * @LastEditTime: 2022-09-23 22:57:19
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-13 20:30:36
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
   <div class="Login" :class="isDark">
@@ -54,11 +54,11 @@ foo: String
 
 }
 .dark{
-  background:url(https://s2.loli.net/2022/09/23/SXJFy4dawHvpMq3.webp);
+  background:url(https://s2.loli.net/2022/09/23/7qDn9NMw3T5omEB.webp);
   background-size: cover; 
 }
 .light{
-  background:url(https://s2.loli.net/2022/09/23/AUBWN18eGTStKov.webp);
+  background:url(https://s2.loli.net/2022/09/23/7qDn9NMw3T5omEB.webp);
   background-size: cover; 
 }
 

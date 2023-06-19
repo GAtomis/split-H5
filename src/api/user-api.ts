@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-02 15:21:07
- * @LastEditTime: 2022-09-25 10:16:16
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-13 23:00:15
+ * @LastEditors: GAtomis 850680822@qq.com
  */
 
 
@@ -27,9 +27,11 @@ export function register(data:Register) {
 }
 export function getUserInfo() {
   return http.request<any,Result<UserInfo>>({
-    url:"user/userInfo",
+    url:"user/getBaseInfo",
   })
 }
+
+
 export function createUserInfo(data:UserInfo) {
   return http.request<any,Result<string>>({
     url:"user/addUserInfo",
