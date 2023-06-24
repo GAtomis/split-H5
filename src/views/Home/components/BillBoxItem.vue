@@ -2,8 +2,8 @@
  * @Description: 请输入....
  * @Author: Gavin
  * @Date: 2022-08-16 18:22:58
- * @LastEditTime: 2022-10-03 12:22:59
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-24 23:36:02
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
   <div class="warp">
@@ -16,13 +16,13 @@
         <van-cell :title="item.name">
 
           <template #value>
-            <span>创建人：<van-tag type="success" size="medium">{{creator?.name}}</van-tag></span>
+            <span>创建人：<van-tag type="success" size="medium">{{ creator?.nickName }}</van-tag></span>
 
           </template>
 
         </van-cell>
         <p class="user-warp"> <span>参与人:</span>
-          <van-tag v-for="user in item.sysUsers" :key="user.id" type="primary" size="medium">{{user.name}}</van-tag>
+          <van-tag v-for="user in item.sysUsers" :key="user.id" type="primary" size="medium">{{ user.nickName }}</van-tag>
         </p>
 
         <van-cell icon="location-o" :title="item.area" :label="item.describe">
@@ -31,14 +31,15 @@
             <span>CNY </span>
             <span style=" margin-left:2px;color: var(--van-card-price-color);
     font-weight: var(--van-font-bold);
-    font-size:17px;"> {{item.bilRecords.length&&item.bilRecords.map(r=>+r.price).reduce((total, val) => total + val)}}</span>
+    font-size:17px;"> {{ item.bilRecords.length && item.bilRecords.map(r => +r.price).reduce((total, val) => total +
+      val).toFixed(2) }}</span>
 
           </template>
 
 
         </van-cell>
 
-        <p class="timezone"><span>有效期：{{createTime}}</span> </p>
+        <p class="timezone"><span>有效期：{{ createTime }}</span> </p>
       </van-cell-group>
       <!-- <p>{{createTime}}</p>
       <p>{{item.id}}</p>
@@ -85,7 +86,8 @@ const total = computed(() => props.item.creator)
   }
 
   .user-warp {
-    margin-left: 15px;
+    margin-left: 16px;
+    font-size: 12px;
 
     span {
       margin-right: 5px;

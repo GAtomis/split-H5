@@ -2,8 +2,8 @@
  * @Description: 路由守卫
  * @Author: Gavin
  * @Date: 2021-07-21 09:53:05
- * @LastEditTime: 2022-09-24 09:53:46
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-24 17:43:28
+ * @LastEditors: GAtomis 850680822@qq.com
  */
 import {
   Router,
@@ -36,7 +36,7 @@ const  hasWhiteList=(routerName:string):boolean=> whitelist.includes(routerName)
  * @return {*}
  * @Date: 2022-08-18 18:55:20
  */
-const  hasToken =():boolean=> useUser().sys_token!=""
+const  hasToken =():boolean=> !!useUser().sys_token
 
 /**
  * @description: 是否登陆并已获得信息
@@ -44,7 +44,7 @@ const  hasToken =():boolean=> useUser().sys_token!=""
  * @return {*}
  * @Date: 2022-08-18 18:55:37
  */
-const  isLogin= ():boolean=> !!useUser().sys_user.id
+const  isLogin= ():boolean=> !!useUser().sys_user.ID
 
 export function createGuardHook(router: Router): void {
   router.beforeEach(

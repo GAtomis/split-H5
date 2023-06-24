@@ -2,7 +2,7 @@
  * @Description: Home
  * @Author: Gavin
  * @Date: 2022-08-14 15:50:33
- * @LastEditTime: 2023-06-19 19:34:11
+ * @LastEditTime: 2023-06-24 22:05:53
  * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
@@ -21,7 +21,6 @@
 
       <van-skeleton title :row="8" :loading="loading">
       
-
         <section v-if="isEmpty">
           <bill-box-item class="bill-item-warp" @click="handleBillTable(item,index)" v-for="item,index in tableList"
             :item="item" :key="index">
@@ -30,18 +29,8 @@
         <section v-else>
           <van-empty description="当前还没有账单" />
         </section>
-
       </van-skeleton>
-
-
     </bill-box>
-
-
-
-
-
-
-
     <van-button icon="plus" type="primary" round class="home-plus" @click="addBills">
 
     </van-button>
@@ -85,7 +74,7 @@ const getTables = async () => {
   })
 
 
-  tableList.value = result.item
+  tableList.value =list
   loading.value = false
 
 }
@@ -104,12 +93,12 @@ const actions: ActionSheetAction[] = [
   { name: '新建笔记' },
 ];
 
-const handleBillTable: (item: BillTable, index: number) => void = ({ id }, index) => {
+const handleBillTable: (item: BillTable, index: number) => void = ({ ID }, index) => {
 
   router.push({
     path: "/bill/billTable",
     query: {
-      id
+      id:ID
 
     }
   })
