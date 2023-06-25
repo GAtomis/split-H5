@@ -135,12 +135,13 @@ watchEffect(() => {
 onMounted(()=>{
 
   if (route.query?.id) {
+    
 
-    fileList.value=[{
+    // fileList.value=[{
 
-      url:useTempTable().bill_record.img ,
+    //   url:useTempTable().bill_record.img ,
 
-    }]
+    // }]
   }
   
 })
