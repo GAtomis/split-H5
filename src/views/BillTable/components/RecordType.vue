@@ -2,8 +2,8 @@
  * @Description: 记录
  * @Author: Gavin
  * @Date: 2022-08-23 23:36:58
- * @LastEditTime: 2022-09-20 17:04:07
- * @LastEditors: Gavin
+ * @LastEditTime: 2023-06-27 13:41:34
+ * @LastEditors: GAtomis 850680822@qq.com
 -->
 <template>
   <div>
@@ -34,6 +34,7 @@ foo: String
 import { ref } from 'vue'
 import {RecordType} from "@/model/enum/types"
 import {useEnum} from '@/store/pinia'
+import {getDict} from '@/utils/dictionary'
 
 const serachKey = ref('')
 const  defaultRecord:RecordType[]=useEnum().recordTypeEnum
